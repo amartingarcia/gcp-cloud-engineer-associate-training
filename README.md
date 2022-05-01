@@ -5,30 +5,28 @@
 - [Table of Contents](#table-of-contents)
 - [1 - Google Cloud Regions and Zones](#1---google-cloud-regions-and-zones)
   - [Regions and Zones](#regions-and-zones)
-    - [Links](#links)
 - [2 - Google Compute Engine](#2---google-compute-engine)
   - [Features](#features)
-    - [Links](#links-1)
   - [Family](#family)
     - [Example](#example)
-    - [Links](#links-2)
   - [Image](#image)
   - [Internal and External IP](#internal-and-external-ip)
     - [Static IP](#static-ip)
-    - [Links](#links-3)
   - [Startup Scripts](#startup-scripts)
-    - [Links](#links-4)
   - [Instance Template](#instance-template)
-    - [Links](#links-5)
   - [Custom image](#custom-image)
 - [3 - Optimizing Costs and Perfomance](#3---optimizing-costs-and-perfomance)
   - [Sustained use discounts](#sustained-use-discounts)
-    - [Links](#links-6)
   - [Committed use discounts](#committed-use-discounts)
-    - [Links](#links-7)
   - [Preemptible VM](#preemptible-vm)
-    - [Links](#links-8)
   - [Google Compute Engine - Billing](#google-compute-engine---billing)
+  - [Compute Engine: Live Migration & Availability Policy](#compute-engine-live-migration--availability-policy)
+  - [Custom Machine Types](#custom-machine-types)
+  - [GPUs](#gpus)
+  - [Virtual Machine - Remember](#virtual-machine---remember)
+  - [Virtual Machine - Best Practices](#virtual-machine---best-practices)
+  - [Scenarios](#scenarios)
+- [4 - Gcloud](#4---gcloud)
 
 
 
@@ -51,7 +49,6 @@ El cliente elige la `region` o `zones` donde aloja sus recursos, elegir una `zon
 
 Ciertos recursos como `Images`, `Elastics IP`, `firewall rules` y `VPC networks`, __tienen límites de `Quota definidos para todo el proyecto y límites de quota por region__. Si supera alguno de los límites de quota afectados, no podrá agregar más recursos del mismo tipo en ese proyecto o region.
 
-### Links
 * [Regions-zones](https://cloud.google.com/compute/docs/regions-zones)
 * [Global/Regional/Zonal Resources](https://cloud.google.com/compute/docs/regions-zones/global-regional-zonal-resources)
 * [Virtualization](https://cloud.google.com/compute/docs/regions-zones/zone-virtualization)
@@ -63,7 +60,6 @@ Ciertos recursos como `Images`, `Elastics IP`, `firewall rules` y `VPC networks`
 * Añadir `storage` (& `network storage`) para las `VM instances`
 * Manejo de `network connectivity` y `configuration` para las `VM instances`
 
-### Links
 * [General Instances](https://cloud.google.com/compute/docs/instances)
 
 ## Family
@@ -85,8 +81,6 @@ Existen diferentes tipos de familas para distintos Workloads.
   * 2 - Number of CPUs
 
 A la par que se elige una máquina superior, las capabilities de Memory, Disk y Netwoking van incrementando.
-
-### Links
 * [Family](https://cloud.google.com/compute/docs/machine-types)
 
 ## Image
@@ -100,11 +94,9 @@ Image type:
 * Permanecen adjuntas aunque reinicimos la VM instance
 * Se factura aunque no esté en uso
 
-### Links
 * [IP Address](https://cloud.google.com/compute/docs/ip-addresses?hl=en)
 
 ## Startup Scripts
-### Links
 * [Startup Scripts](https://cloud.google.com/compute/docs/instances/startup-scripts/linux?hl=es-419)
 
 ## Instance Template
@@ -121,7 +113,6 @@ Otra caracteristica es que puede especificar una Image family (debia-9)
 
 No hay costo asociado a la creación de plantillas, pero si por la creación de VM instances.
 
-### Links
 * [Instance Template](https://cloud.google.com/compute/docs/instance-templates?hl=es_419)
 
 ## Custom image
@@ -138,7 +129,6 @@ Una de las ventajas de crear una Custom Image es garantizar que todos los estand
 * No se aplica a todas las máquinas, por ejemplo E2 y A2.
 * Si está utilizando APP Enginx flexible o Dataflow para crear las VMs no se aplican los descuentos.
 
-### Links
 * [Sustains Discounts](https://cloud.google.com/compute/docs/sustained-use-discounts)
 
 ## Committed use discounts
@@ -147,8 +137,6 @@ Una de las ventajas de crear una Custom Image es garantizar que todos los estand
 * Dependiendo el tipo de máquia y la GPUs que utilce puede obtener hasta un 70% de descuento.
 * Aplicable por GCE y GKE
 * No aplicable para App Engine Flexible y Dataflow
-
-### Links
 * [Comitted Discounts](https://cloud.google.com/compute/docs/instances/signing-up-committed-use-discounts?hl=es_419#:~:text=When%20you%20purchase%20a%20committed,like%20machine%20types%20or%20GPUs.)
 
 ## Preemptible VM
@@ -163,7 +151,6 @@ Una de las ventajas de crear una Custom Image es garantizar que todos los estand
 * No pueden ser reiniciadas automáticamente.
 * No es aplicable al Free Tier Credits.
 
-### Links
 * [Preemptible VM](https://cloud.google.com/compute/docs/instances/preemptible)
 
 
@@ -171,3 +158,74 @@ Una de las ventajas de crear una Custom Image es garantizar que todos los estand
 * Se le factura por segundo a partir del primer minuto.
 * Si para una VM no se le cobrará por el recurso, pero si por el almacenamiento.
 * Recomendación: creeate Budgets alerts
+
+* [Budgets](https://cloud.google.com/billing/docs/how-to/budgets)
+
+## Compute Engine: Live Migration & Availability Policy
+Cuando GCP necesita realizar alguna actualizción de hardware o software donde corre su VM, tienen una función llamada Live Migration, que permite la migración a otro Host en la misma zona, includas las que hacen uso de SSDs.
+No es compatible con las VM que hacen uso de GPU.
+
+Esto se configura en la Availability Policy, y puede configurar dos cosas importantes:
+* Durante el mantenimiento de un host:
+  * Por defecto se migra
+  * Terminate
+* Reinicio automático
+
+* [Availability Policies](https://cloud.google.com/compute/docs/instances/setting-instance-scheduling-options?hl=es_419)
+
+## Custom Machine Types
+* Puede crear MAchine Type personalizadas
+* Puede ajustar CPUs, memory and GPUs
+  * Solo disponible para algunos tipos demáquinas como E2, N2 o N1
+  * Variedad de OS
+  * Se facturará por CPU y Memoria provisionada
+
+* [Custom Machine Type](https://cloud.google.com/compute/docs/instances/creating-instance-with-custom-machine-type)
+
+## GPUs
+Para AI/ML
+* Alto rendimiento para intensive workloads
+* Coste Elevado
+* utiliza imagenes con GPU Libraries
+* No es compatible con todos los tipos de máquinas, por ejemplo no es adminitada en máquinas con shared-core or memory-optimized
+* En las Availability Policies, On host maintenance, solo puede tener "Terminate VM instance"
+* Automatic restart On
+
+## Virtual Machine - Remember
+* Associate with a project
+* La disponibilidad de tipos de máquinas puede variar entre regiones.
+* Puede cambiar el tipo de instance o ajustar CPU y Memory una vez detenida.
+* Puede filtrar sus máquinas virtuales por propiedades o labels
+* Son Zonales, se ejecutan en una específica zona de una región
+* Las imágenes son globales
+* Las Instances Templates son globales
+* Automatic Basic Monitoring is enabled
+  * CPÛ, Network, Disc
+  * For memory and Disk Space, Cloud Monitoring agent is needed
+
+## Virtual Machine - Best Practices
+* Elija la Zone and Region en base a:
+  * Cost, Regulations, Availability needs, Latency and Specific Hardwared needs
+* Elija el tipo de máquinas que necesite
+* Haga reservas de "commited use discounts" para workloads constantes
+* Use preemptible instances for fault-toleratn, NON time critical workloads
+* Utiliza labels
+
+## Scenarios
+
+* Prerequisitos para crear una VM
+  * Project
+  * Billing Account
+  * Compute Engines APIs enabled
+* Hardwared dedicado
+  * Sole-tenants nodes
+* Parcheo de miles de máquinas
+  * VM Manager
+* Logging to your VM
+  * Shh into it
+* you do not want to expones a VM to internet
+  * Do not assing an external IP
+* You want allow _HTTP trafffic to your VM
+  * configure Firewall Rules
+
+# 4 - Gcloud

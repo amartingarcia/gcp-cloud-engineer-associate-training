@@ -27,6 +27,8 @@
   - [Virtual Machine - Best Practices](#virtual-machine---best-practices)
   - [Scenarios](#scenarios)
 - [4 - Gcloud](#4---gcloud)
+  - [Gcloud example commands](#gcloud-example-commands)
+  - [Syntax](#syntax)
 
 
 
@@ -229,3 +231,434 @@ Para AI/ML
   * configure Firewall Rules
 
 # 4 - Gcloud
+* Command line interface to interact with Google Cloud Resources
+* Most GCP services can be managed from CLI using Gcloud:
+  * GCE
+  * GKE
+  * Databases
+  * etc
+* You can create/delete/update/read existing resources and perform actions like deployemnts as well
+* SOME GCP services have specific CLI Tools:
+* Cloud Storage - gsutil
+* Cloud Big Query - bq
+* Cloud Bigtable - cbt
+* Kubernetes - kubectl
+
+## Gcloud example commands
+```sh
+# gcloud config list project
+[core]
+project = centering-aegis-348716
+
+Your active configuration is: [default]
+
+# gcloud config configurations list
+NAME     IS_ACTIVE  ACCOUNT                        PROJECT                 COMPUTE_DEFAULT_ZONE  COMPUTE_DEFAULT_REGION
+default  True       adrian.cloud.test.2@gmail.com  centering-aegis-348716  europe-west4-a        europe-west4
+
+# gcloud config configurations activate default
+Activated [default].
+
+# gcloud config list
+[compute]
+region = europe-west4
+zone = europe-west4-a
+[core]
+account = adrian.cloud.test.2@gmail.com
+disable_usage_reporting = False
+project = centering-aegis-348716
+
+Your active configuration is: [default]
+
+# gcloud config configurations describe default
+is_active: true
+name: default
+properties:
+  compute:
+    region: europe-west4
+    zone: europe-west4-a
+  core:
+    account: adrian.cloud.test.2@gmail.com
+    project: centering-aegis-348716
+
+# gcloud compute instances list
+Listed 0 items.
+
+# gcloud compute instances create my-first-instance-from-gcloud
+Created [https://www.googleapis.com/compute/v1/projects/centering-aegis-348716/zones/europe-west4-a/instances/my-first-instance-from-gcloud].
+NAME                           ZONE            MACHINE_TYPE   PREEMPTIBLE  INTERNAL_IP  EXTERNAL_IP    STATUS
+my-first-instance-from-gcloud  europe-west4-a  n1-standard-1               10.164.0.2   34.147.92.235  RUNNING
+
+# gcloud compute instances describe my-first-instance-from-gcloud
+canIpForward: false
+cpuPlatform: Intel Skylake
+creationTimestamp: '2022-05-03T11:37:18.872-07:00'
+deletionProtection: false
+disks:
+- autoDelete: true
+  boot: true
+  deviceName: persistent-disk-0
+  diskSizeGb: '10'
+  guestOsFeatures:
+  - type: UEFI_COMPATIBLE
+  - type: VIRTIO_SCSI_MULTIQUEUE
+  - type: GVNIC
+  index: 0
+  interface: SCSI
+  kind: compute#attachedDisk
+  licenses:
+  - https://www.googleapis.com/compute/v1/projects/debian-cloud/global/licenses/debian-11-bullseye
+  mode: READ_WRITE
+  source: https://www.googleapis.com/compute/v1/projects/centering-aegis-348716/zones/europe-west4-a/disks/my-first-instance-from-gcloud
+  type: PERSISTENT
+fingerprint: ni9zVBsQDBI=
+id: '5128937407023728818'
+kind: compute#instance
+labelFingerprint: 42WmSpB8rSM=
+lastStartTimestamp: '2022-05-03T11:37:24.595-07:00'
+machineType: https://www.googleapis.com/compute/v1/projects/centering-aegis-348716/zones/europe-west4-a/machineTypes/n1-standard-1
+metadata:
+  fingerprint: SSsPC5hcgKU=
+  kind: compute#metadata
+name: my-first-instance-from-gcloud
+networkInterfaces:
+- accessConfigs:
+  - kind: compute#accessConfig
+    name: external-nat
+    natIP: 34.147.92.235
+    networkTier: PREMIUM
+    type: ONE_TO_ONE_NAT
+  fingerprint: 4exhl26iz-o=
+  kind: compute#networkInterface
+  name: nic0
+  network: https://www.googleapis.com/compute/v1/projects/centering-aegis-348716/global/networks/default
+  networkIP: 10.164.0.2
+  stackType: IPV4_ONLY
+  subnetwork: https://www.googleapis.com/compute/v1/projects/centering-aegis-348716/regions/europe-west4/subnetworks/default
+scheduling:
+  automaticRestart: true
+  onHostMaintenance: MIGRATE
+  preemptible: false
+  provisioningModel: STANDARD
+selfLink: https://www.googleapis.com/compute/v1/projects/centering-aegis-348716/zones/europe-west4-a/instances/my-first-instance-from-gcloud
+serviceAccounts:
+- email: 431680528914-compute@developer.gserviceaccount.com
+  scopes:
+  - https://www.googleapis.com/auth/devstorage.read_only
+  - https://www.googleapis.com/auth/logging.write
+  - https://www.googleapis.com/auth/monitoring.write
+  - https://www.googleapis.com/auth/pubsub
+  - https://www.googleapis.com/auth/service.management.readonly
+  - https://www.googleapis.com/auth/servicecontrol
+  - https://www.googleapis.com/auth/trace.append
+shieldedInstanceConfig:
+  enableIntegrityMonitoring: true
+  enableSecureBoot: false
+  enableVtpm: true
+shieldedInstanceIntegrityPolicy:
+  updateAutoLearnPolicy: true
+startRestricted: false
+status: RUNNING
+tags:
+  fingerprint: 42WmSpB8rSM=
+zone: https://www.googleapis.com/compute/v1/projects/centering-aegis-348716/zones/europe-west4-a
+
+# gcloud compute instances delete my-first-instance-from-gcloud
+The following instances will be deleted. Any attached disks configured to be auto-deleted will be deleted unless they are attached to any other instances or the `--keep-disks` flag is 
+given and specifies them for keeping. Deleting a disk is irreversible and any data on the disk will be lost.
+ - [my-first-instance-from-gcloud] in [europe-west4-a]
+
+Do you want to continue (Y/n)?  Y
+
+Deleted [https://www.googleapis.com/compute/v1/projects/centering-aegis-348716/zones/europe-west4-a/instances/my-first-instance-from-gcloud].
+
+# gcloud compute zones list
+NAME                       REGION                   STATUS  NEXT_MAINTENANCE  TURNDOWN_DATE
+us-east1-b                 us-east1                 UP
+us-east1-c                 us-east1                 UP
+us-east1-d                 us-east1                 UP
+us-east4-c                 us-east4                 UP
+us-east4-b                 us-east4                 UP
+us-east4-a                 us-east4                 UP
+us-central1-c              us-central1              UP
+us-central1-a              us-central1              UP
+us-central1-f              us-central1              UP
+us-central1-b              us-central1              UP
+us-west1-b                 us-west1                 UP
+us-west1-c                 us-west1                 UP
+us-west1-a                 us-west1                 UP
+europe-west4-a             europe-west4             UP
+europe-west4-b             europe-west4             UP
+europe-west4-c             europe-west4             UP
+europe-west1-b             europe-west1             UP
+europe-west1-d             europe-west1             UP
+europe-west1-c             europe-west1             UP
+europe-west3-c             europe-west3             UP
+europe-west3-a             europe-west3             UP
+europe-west3-b             europe-west3             UP
+europe-west2-c             europe-west2             UP
+europe-west2-b             europe-west2             UP
+europe-west2-a             europe-west2             UP
+asia-east1-b               asia-east1               UP
+asia-east1-a               asia-east1               UP
+asia-east1-c               asia-east1               UP
+asia-southeast1-b          asia-southeast1          UP
+asia-southeast1-a          asia-southeast1          UP
+asia-southeast1-c          asia-southeast1          UP
+asia-northeast1-b          asia-northeast1          UP
+asia-northeast1-c          asia-northeast1          UP
+asia-northeast1-a          asia-northeast1          UP
+asia-south1-c              asia-south1              UP
+asia-south1-b              asia-south1              UP
+asia-south1-a              asia-south1              UP
+australia-southeast1-b     australia-southeast1     UP
+australia-southeast1-c     australia-southeast1     UP
+australia-southeast1-a     australia-southeast1     UP
+southamerica-east1-b       southamerica-east1       UP
+southamerica-east1-c       southamerica-east1       UP
+southamerica-east1-a       southamerica-east1       UP
+asia-east2-a               asia-east2               UP
+asia-east2-b               asia-east2               UP
+asia-east2-c               asia-east2               UP
+asia-northeast2-a          asia-northeast2          UP
+asia-northeast2-b          asia-northeast2          UP
+asia-northeast2-c          asia-northeast2          UP
+asia-northeast3-a          asia-northeast3          UP
+asia-northeast3-b          asia-northeast3          UP
+asia-northeast3-c          asia-northeast3          UP
+asia-south2-a              asia-south2              UP
+asia-south2-b              asia-south2              UP
+asia-south2-c              asia-south2              UP
+asia-southeast2-a          asia-southeast2          UP
+asia-southeast2-b          asia-southeast2          UP
+asia-southeast2-c          asia-southeast2          UP
+australia-southeast2-a     australia-southeast2     UP
+australia-southeast2-b     australia-southeast2     UP
+australia-southeast2-c     australia-southeast2     UP
+europe-central2-a          europe-central2          UP
+europe-central2-b          europe-central2          UP
+europe-central2-c          europe-central2          UP
+europe-north1-a            europe-north1            UP
+europe-north1-b            europe-north1            UP
+europe-north1-c            europe-north1            UP
+europe-west6-a             europe-west6             UP
+europe-west6-b             europe-west6             UP
+europe-west6-c             europe-west6             UP
+europe-west8-a             europe-west8             UP
+europe-west8-b             europe-west8             UP
+europe-west8-c             europe-west8             UP
+europe-west9-a             europe-west9             UP
+europe-west9-b             europe-west9             UP
+europe-west9-c             europe-west9             UP
+northamerica-northeast1-a  northamerica-northeast1  UP
+northamerica-northeast1-b  northamerica-northeast1  UP
+northamerica-northeast1-c  northamerica-northeast1  UP
+northamerica-northeast2-a  northamerica-northeast2  UP
+northamerica-northeast2-b  northamerica-northeast2  UP
+northamerica-northeast2-c  northamerica-northeast2  UP
+southamerica-west1-a       southamerica-west1       UP
+southamerica-west1-b       southamerica-west1       UP
+southamerica-west1-c       southamerica-west1       UP
+us-west2-a                 us-west2                 UP
+us-west2-b                 us-west2                 UP
+us-west2-c                 us-west2                 UP
+us-west3-a                 us-west3                 UP
+us-west3-b                 us-west3                 UP
+us-west3-c                 us-west3                 UP
+us-west4-a                 us-west4                 UP
+us-west4-b                 us-west4                 UP
+us-west4-c                 us-west4                 UP
+
+# gcloud compute regions list
+NAME                     CPUS  DISKS_GB  ADDRESSES  RESERVED_ADDRESSES  STATUS  TURNDOWN_DATE
+asia-east1               0/8   0/2048    0/4        0/8                 UP
+asia-east2               0/8   0/2048    0/4        0/8                 UP
+asia-northeast1          0/8   0/2048    0/4        0/8                 UP
+asia-northeast2          0/8   0/2048    0/4        0/8                 UP
+asia-northeast3          0/8   0/2048    0/4        0/8                 UP
+asia-south1              0/8   0/2048    0/4        0/8                 UP
+asia-south2              0/8   0/2048    0/4        0/8                 UP
+asia-southeast1          0/8   0/2048    0/4        0/8                 UP
+asia-southeast2          0/8   0/2048    0/4        0/8                 UP
+australia-southeast1     0/8   0/2048    0/4        0/8                 UP
+australia-southeast2     0/8   0/2048    0/4        0/8                 UP
+europe-central2          0/8   0/2048    0/4        0/8                 UP
+europe-north1            0/8   0/2048    0/4        0/8                 UP
+europe-west1             0/8   0/2048    0/4        0/8                 UP
+europe-west2             0/8   0/2048    0/4        0/8                 UP
+europe-west3             0/8   0/2048    0/4        0/8                 UP
+europe-west4             0/8   0/2048    0/4        0/8                 UP
+europe-west6             0/8   0/2048    0/4        0/8                 UP
+europe-west8             0/8   0/2048    0/4        0/8                 UP
+europe-west9             0/8   0/2048    0/4        0/8                 UP
+northamerica-northeast1  0/8   0/2048    0/4        0/8                 UP
+northamerica-northeast2  0/8   0/2048    0/4        0/8                 UP
+southamerica-east1       0/8   0/2048    0/4        0/8                 UP
+southamerica-west1       0/8   0/2048    0/4        0/8                 UP
+us-central1              0/8   0/2048    0/4        0/8                 UP
+us-east1                 0/8   0/2048    0/4        0/8                 UP
+us-east4                 0/8   0/2048    0/4        0/8                 UP
+us-west1                 0/8   0/2048    0/4        0/8                 UP
+us-west2                 0/8   0/2048    0/4        0/8                 UP
+us-west3                 0/8   0/2048    0/4        0/8                 UP
+us-west4                 0/8   0/2048    0/4        0/8                 UP
+
+# gcloud compute machine-types list
+ 
+# gcloud compute machine-types list --filter zone:asia-southeast2-b
+NAME            ZONE               CPUS  MEMORY_GB  DEPRECATED
+e2-highcpu-16   asia-southeast2-b  16    16.00
+e2-highcpu-2    asia-southeast2-b  2     2.00
+e2-highcpu-32   asia-southeast2-b  32    32.00
+e2-highcpu-4    asia-southeast2-b  4     4.00
+e2-highcpu-8    asia-southeast2-b  8     8.00
+e2-highmem-16   asia-southeast2-b  16    128.00
+e2-highmem-2    asia-southeast2-b  2     16.00
+e2-highmem-4    asia-southeast2-b  4     32.00
+e2-highmem-8    asia-southeast2-b  8     64.00
+e2-medium       asia-southeast2-b  2     4.00
+e2-micro        asia-southeast2-b  2     1.00
+e2-small        asia-southeast2-b  2     2.00
+e2-standard-16  asia-southeast2-b  16    64.00
+e2-standard-2   asia-southeast2-b  2     8.00
+e2-standard-32  asia-southeast2-b  32    128.00
+e2-standard-4   asia-southeast2-b  4     16.00
+e2-standard-8   asia-southeast2-b  8     32.00
+f1-micro        asia-southeast2-b  1     0.60
+g1-small        asia-southeast2-b  1     1.70
+n1-highcpu-16   asia-southeast2-b  16    14.40
+n1-highcpu-2    asia-southeast2-b  2     1.80
+n1-highcpu-32   asia-southeast2-b  32    28.80
+n1-highcpu-4    asia-southeast2-b  4     3.60
+n1-highcpu-64   asia-southeast2-b  64    57.60
+n1-highcpu-8    asia-southeast2-b  8     7.20
+n1-highcpu-96   asia-southeast2-b  96    86.40
+n1-highmem-16   asia-southeast2-b  16    104.00
+n1-highmem-2    asia-southeast2-b  2     13.00
+n1-highmem-32   asia-southeast2-b  32    208.00
+n1-highmem-4    asia-southeast2-b  4     26.00
+n1-highmem-64   asia-southeast2-b  64    416.00
+n1-highmem-8    asia-southeast2-b  8     52.00
+n1-highmem-96   asia-southeast2-b  96    624.00
+n1-standard-1   asia-southeast2-b  1     3.75
+n1-standard-16  asia-southeast2-b  16    60.00
+n1-standard-2   asia-southeast2-b  2     7.50
+n1-standard-32  asia-southeast2-b  32    120.00
+n1-standard-4   asia-southeast2-b  4     15.00
+n1-standard-64  asia-southeast2-b  64    240.00
+n1-standard-8   asia-southeast2-b  8     30.00
+n1-standard-96  asia-southeast2-b  96    360.00
+n2-highcpu-16   asia-southeast2-b  16    16.00
+n2-highcpu-2    asia-southeast2-b  2     2.00
+n2-highcpu-32   asia-southeast2-b  32    32.00
+n2-highcpu-4    asia-southeast2-b  4     4.00
+n2-highcpu-48   asia-southeast2-b  48    48.00
+n2-highcpu-64   asia-southeast2-b  64    64.00
+n2-highcpu-8    asia-southeast2-b  8     8.00
+n2-highcpu-80   asia-southeast2-b  80    80.00
+n2-highmem-16   asia-southeast2-b  16    128.00
+n2-highmem-2    asia-southeast2-b  2     16.00
+n2-highmem-32   asia-southeast2-b  32    256.00
+n2-highmem-4    asia-southeast2-b  4     32.00
+n2-highmem-48   asia-southeast2-b  48    384.00
+n2-highmem-64   asia-southeast2-b  64    512.00
+n2-highmem-8    asia-southeast2-b  8     64.00
+n2-highmem-80   asia-southeast2-b  80    640.00
+n2-standard-16  asia-southeast2-b  16    64.00
+n2-standard-2   asia-southeast2-b  2     8.00
+n2-standard-32  asia-southeast2-b  32    128.00
+n2-standard-4   asia-southeast2-b  4     16.00
+n2-standard-48  asia-southeast2-b  48    192.00
+n2-standard-64  asia-southeast2-b  64    256.00
+n2-standard-8   asia-southeast2-b  8     32.00
+n2-standard-80  asia-southeast2-b  80    320.00
+
+# gcloud compute machine-types list --filter "zone:(asia-southeast2-b asia-southeast2-c)"
+# gcloud compute zones list --filter=region:us-west2
+NAME        REGION    STATUS  NEXT_MAINTENANCE  TURNDOWN_DATE
+us-west2-a  us-west2  UP
+us-west2-b  us-west2  UP
+us-west2-c  us-west2  UP
+
+# gcloud compute zones list --sort-by=region
+# gcloud compute zones list --sort-by=~region
+# gcloud compute zones list --uri
+https://www.googleapis.com/compute/v1/projects/centering-aegis-348716/zones/us-east1-b
+https://www.googleapis.com/compute/v1/projects/centering-aegis-348716/zones/us-east1-c
+https://www.googleapis.com/compute/v1/projects/centering-aegis-348716/zones/us-east1-d
+https://www.googleapis.com/compute/v1/projects/centering-aegis-348716/zones/us-east4-c
+https://www.googleapis.com/compute/v1/projects/centering-aegis-348716/zones/us-east4-b
+https://www.googleapis.com/compute/v1/projects/centering-aegis-348716/zones/us-east4-a
+https://www.googleapis.com/compute/v1/projects/centering-aegis-348716/zones/us-central1-c
+https://www.googleapis.com/compute/v1/projects/centering-aegis-348716/zones/us-central1-a
+https://www.googleapis.com/compute/v1/projects/centering-aegis-348716/zones/us-central1-f
+https://www.googleapis.com/compute/v1/projects/centering-aegis-348716/zones/us-central1-b
+...
+
+# gcloud compute regions describe us-west4
+creationTimestamp: '1969-12-31T16:00:00.000-08:00'
+description: us-west4
+id: '1430'
+kind: compute#region
+name: us-west4
+quotas:
+- limit: 8.0
+  metric: CPUS
+  usage: 0.0
+- limit: 2048.0
+  metric: DISKS_TOTAL_GB
+  usage: 0.0
+- limit: 8.0
+  metric: STATIC_ADDRESSES
+  usage: 0.0
+- limit: 4.0
+...
+
+# gcloud compute instance-templates list
+Listed 0 items.
+
+# gcloud compute instance-templates create instance-template-from-command-line
+Created [https://www.googleapis.com/compute/v1/projects/centering-aegis-348716/global/instanceTemplates/instance-template-from-command-line].
+NAME                                 MACHINE_TYPE   PREEMPTIBLE  CREATION_TIMESTAMP
+instance-template-from-command-line  n1-standard-1               2022-05-03T11:44:40.740-07:00
+
+# gcloud compute instance-templates describe instance-template-from-command-line
+creationTimestamp: '2022-05-03T11:44:40.740-07:00'
+description: ''
+id: '7160651478575400695'
+kind: compute#instanceTemplate
+name: instance-template-from-command-line
+properties:
+  canIpForward: false
+  disks:
+  - autoDelete: true
+    boot: true
+    deviceName: persistent-disk-0
+    index: 0
+    initializeParams:
+      sourceImage: https://compute.googleapis.com/compute/v1/projects/debian-cloud/global/images/family/debian-11
+    kind: compute#attachedDisk
+...
+
+# gcloud compute instance-templates delete instance-template-from-command-line
+The following instance templates will be deleted:
+ - [instance-template-from-command-line]
+
+Do you want to continue (Y/n)?  Y
+
+Deleted [https://www.googleapis.com/compute/v1/projects/centering-aegis-348716/global/instanceTemplates/instance-template-from-command-line].
+```
+
+## Syntax
+* gcloud GROUP SUBGROUP ACTION ...
+  * GROUP - config or compute or container or iam or ...
+    * Service Group
+  * SUBGROUP - instances or images or machines-types or regions or zones ...
+    * Subgroup
+  * ACTION - Creat or list, or start or stop or describe ...
+
+* Example:
+  * gcloud compute instances list
+  * gcloud compute zones list
+  * gcloud compute regions list
+  * ...

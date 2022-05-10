@@ -29,6 +29,10 @@
 - [4 - Gcloud](#4---gcloud)
   - [Gcloud example commands](#gcloud-example-commands)
   - [Syntax](#syntax)
+- [5 - Instance Groups](#5---instance-groups)
+  - [Updating](#updating)
+  - [Instance Group Scenarios](#instance-group-scenarios)
+  - [Some commands](#some-commands)
 
 
 
@@ -662,3 +666,61 @@ Deleted [https://www.googleapis.com/compute/v1/projects/centering-aegis-348716/g
   * gcloud compute zones list
   * gcloud compute regions list
   * ...
+
+# 5 - Instance Groups
+* Instance Group - Group of VM instances managed as a simple entity
+  * Managed (MIG):
+    * Created using a instance template
+    * Features: 
+      * Autoscaling
+      * Autohealing
+      * Managed releases (Rolling update or Canary) 
+      * Add Load Balancer to distributed load
+  * Unmanaged:
+    * Does NOT offer Autoscaling, autohealing & other services
+    * NOT Recommended unless you need different kinds of VMs
+* Location can be Zonal or Regional
+  * Regional gives you higher availability (RECOMMENDED)
+
+* [Instance Group](https://cloud.google.com/compute/docs/instance-groups)
+* [Instance Group Stateful/Stateless](https://cloud.google.com/compute/docs/instance-groups/stateful-migs?hl=es-419)
+* [Instanee Group Unmanaged](https://cloud.google.com/compute/docs/instance-groups/creating-groups-of-unmanaged-instances?hl=es_419#:~:text=An%20unmanaged%20instance%20group%20is,individual%20configuration%20settings%20or%20tuning.)
+
+## Updating
+* Rolling update - Gradual update of instances in an instance group to the new instance template
+  * Specify new template
+  * Specify how you want the update to be done
+* Rolling Restart/replace: Gradual restart or replace of all instances in the group
+  * No change in template but replace/restart existing VMs
+  * Configure Max surge, Max unavailable and What you want to do?
+
+* [MaxSurge](https://cloud.google.com/compute/docs/instance-groups/rolling-out-updates-to-managed-instance-groups?_ga=2.102081153.-100830343.1651250286#max_surge)
+* [MaxUnavailable](https://cloud.google.com/compute/docs/instance-groups/rolling-out-updates-to-managed-instance-groups?_ga=2.102081153.-100830343.1651250286#max_unavailable)
+
+## Instance Group Scenarios
+* You want MIG managed application to survive Zonal Failures
+  * Create multiple zone MIG (or regional MIG)
+* You want create VMs of different configurations in the same group
+  * Create un-managed Instance Group
+* You want to preserve VM state in an MIG
+  * Stateful MIG - Preserve VM states (instance name, attached Disk and metadata). Recommended for stateful workloads (database, data processing group)
+* You want high availability in an MIG even when there are hardware/software updates
+  * Use an instance template with availability policy automatic restart: enabled & on-host maintenance: migrate. Ensure live migration and automatic restart.
+* You want unhealthy instances to be automaticall y replaced
+  * Configure health check on the MIG (self healing)
+* Avoid frequent scale up & downs
+  * Cool-down period/initial delay
+
+
+## Some commands
+```bash
+gcloud compute instances create my-test-vm --source-instance-template=my-instance-template-with-custom-image
+gcloud compute instance-groups managed list
+gcloud compute instance-groups managed delete my-managed-instance-group
+gcloud compute instance-groups managed create my-mig --zone us-central1-a --template my-instance-template-with-custom-image --size 1
+gcloud compute instance-groups managed set-autoscaling my-mig --max-num-replicas=2 --zone us-central1-a
+gcloud compute instance-groups managed stop-autoscaling my-mig --zone us-central1-a
+gcloud compute instance-groups managed resize my-mig --size=1 --zone=us-central1-a
+gcloud compute instance-groups managed recreate-instances my-mig --instances=my-mig-85fb --zone us-central1-a
+gcloud compute instance-groups managed delete my-managed-instance-group --region=us-central1
+```

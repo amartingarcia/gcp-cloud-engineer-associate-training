@@ -34,6 +34,8 @@
   - [Instance Group Scenarios](#instance-group-scenarios)
   - [Some commands](#some-commands)
 - [6 - Load Balancing](#6---load-balancing)
+  - [Terminology](#terminology)
+  - [Features](#features-1)
 
 
 
@@ -396,83 +398,7 @@ europe-west4-a             europe-west4             UP
 europe-west4-b             europe-west4             UP
 europe-west4-c             europe-west4             UP
 europe-west1-b             europe-west1             UP
-europe-west1-d             europe-west1             UP
-europe-west1-c             europe-west1             UP
-europe-west3-c             europe-west3             UP
-europe-west3-a             europe-west3             UP
-europe-west3-b             europe-west3             UP
-europe-west2-c             europe-west2             UP
-europe-west2-b             europe-west2             UP
-europe-west2-a             europe-west2             UP
-asia-east1-b               asia-east1               UP
-asia-east1-a               asia-east1               UP
-asia-east1-c               asia-east1               UP
-asia-southeast1-b          asia-southeast1          UP
-asia-southeast1-a          asia-southeast1          UP
-asia-southeast1-c          asia-southeast1          UP
-asia-northeast1-b          asia-northeast1          UP
-asia-northeast1-c          asia-northeast1          UP
-asia-northeast1-a          asia-northeast1          UP
-asia-south1-c              asia-south1              UP
-asia-south1-b              asia-south1              UP
-asia-south1-a              asia-south1              UP
-australia-southeast1-b     australia-southeast1     UP
-australia-southeast1-c     australia-southeast1     UP
-australia-southeast1-a     australia-southeast1     UP
-southamerica-east1-b       southamerica-east1       UP
-southamerica-east1-c       southamerica-east1       UP
-southamerica-east1-a       southamerica-east1       UP
-asia-east2-a               asia-east2               UP
-asia-east2-b               asia-east2               UP
-asia-east2-c               asia-east2               UP
-asia-northeast2-a          asia-northeast2          UP
-asia-northeast2-b          asia-northeast2          UP
-asia-northeast2-c          asia-northeast2          UP
-asia-northeast3-a          asia-northeast3          UP
-asia-northeast3-b          asia-northeast3          UP
-asia-northeast3-c          asia-northeast3          UP
-asia-south2-a              asia-south2              UP
-asia-south2-b              asia-south2              UP
-asia-south2-c              asia-south2              UP
-asia-southeast2-a          asia-southeast2          UP
-asia-southeast2-b          asia-southeast2          UP
-asia-southeast2-c          asia-southeast2          UP
-australia-southeast2-a     australia-southeast2     UP
-australia-southeast2-b     australia-southeast2     UP
-australia-southeast2-c     australia-southeast2     UP
-europe-central2-a          europe-central2          UP
-europe-central2-b          europe-central2          UP
-europe-central2-c          europe-central2          UP
-europe-north1-a            europe-north1            UP
-europe-north1-b            europe-north1            UP
-europe-north1-c            europe-north1            UP
-europe-west6-a             europe-west6             UP
-europe-west6-b             europe-west6             UP
-europe-west6-c             europe-west6             UP
-europe-west8-a             europe-west8             UP
-europe-west8-b             europe-west8             UP
-europe-west8-c             europe-west8             UP
-europe-west9-a             europe-west9             UP
-europe-west9-b             europe-west9             UP
-europe-west9-c             europe-west9             UP
-northamerica-northeast1-a  northamerica-northeast1  UP
-northamerica-northeast1-b  northamerica-northeast1  UP
-northamerica-northeast1-c  northamerica-northeast1  UP
-northamerica-northeast2-a  northamerica-northeast2  UP
-northamerica-northeast2-b  northamerica-northeast2  UP
-northamerica-northeast2-c  northamerica-northeast2  UP
-southamerica-west1-a       southamerica-west1       UP
-southamerica-west1-b       southamerica-west1       UP
-southamerica-west1-c       southamerica-west1       UP
-us-west2-a                 us-west2                 UP
-us-west2-b                 us-west2                 UP
-us-west2-c                 us-west2                 UP
-us-west3-a                 us-west3                 UP
-us-west3-b                 us-west3                 UP
-us-west3-c                 us-west3                 UP
-us-west4-a                 us-west4                 UP
-us-west4-b                 us-west4                 UP
-us-west4-c                 us-west4                 UP
+...................................
 
 # gcloud compute regions list
 NAME                     CPUS  DISKS_GB  ADDRESSES  RESERVED_ADDRESSES  STATUS  TURNDOWN_DATE
@@ -483,30 +409,7 @@ asia-northeast2          0/8   0/2048    0/4        0/8                 UP
 asia-northeast3          0/8   0/2048    0/4        0/8                 UP
 asia-south1              0/8   0/2048    0/4        0/8                 UP
 asia-south2              0/8   0/2048    0/4        0/8                 UP
-asia-southeast1          0/8   0/2048    0/4        0/8                 UP
-asia-southeast2          0/8   0/2048    0/4        0/8                 UP
-australia-southeast1     0/8   0/2048    0/4        0/8                 UP
-australia-southeast2     0/8   0/2048    0/4        0/8                 UP
-europe-central2          0/8   0/2048    0/4        0/8                 UP
-europe-north1            0/8   0/2048    0/4        0/8                 UP
-europe-west1             0/8   0/2048    0/4        0/8                 UP
-europe-west2             0/8   0/2048    0/4        0/8                 UP
-europe-west3             0/8   0/2048    0/4        0/8                 UP
-europe-west4             0/8   0/2048    0/4        0/8                 UP
-europe-west6             0/8   0/2048    0/4        0/8                 UP
-europe-west8             0/8   0/2048    0/4        0/8                 UP
-europe-west9             0/8   0/2048    0/4        0/8                 UP
-northamerica-northeast1  0/8   0/2048    0/4        0/8                 UP
-northamerica-northeast2  0/8   0/2048    0/4        0/8                 UP
-southamerica-east1       0/8   0/2048    0/4        0/8                 UP
-southamerica-west1       0/8   0/2048    0/4        0/8                 UP
-us-central1              0/8   0/2048    0/4        0/8                 UP
-us-east1                 0/8   0/2048    0/4        0/8                 UP
-us-east4                 0/8   0/2048    0/4        0/8                 UP
-us-west1                 0/8   0/2048    0/4        0/8                 UP
-us-west2                 0/8   0/2048    0/4        0/8                 UP
-us-west3                 0/8   0/2048    0/4        0/8                 UP
-us-west4                 0/8   0/2048    0/4        0/8                 UP
+....................
 
 # gcloud compute machine-types list
  
@@ -529,54 +432,7 @@ e2-standard-2   asia-southeast2-b  2     8.00
 e2-standard-32  asia-southeast2-b  32    128.00
 e2-standard-4   asia-southeast2-b  4     16.00
 e2-standard-8   asia-southeast2-b  8     32.00
-f1-micro        asia-southeast2-b  1     0.60
-g1-small        asia-southeast2-b  1     1.70
-n1-highcpu-16   asia-southeast2-b  16    14.40
-n1-highcpu-2    asia-southeast2-b  2     1.80
-n1-highcpu-32   asia-southeast2-b  32    28.80
-n1-highcpu-4    asia-southeast2-b  4     3.60
-n1-highcpu-64   asia-southeast2-b  64    57.60
-n1-highcpu-8    asia-southeast2-b  8     7.20
-n1-highcpu-96   asia-southeast2-b  96    86.40
-n1-highmem-16   asia-southeast2-b  16    104.00
-n1-highmem-2    asia-southeast2-b  2     13.00
-n1-highmem-32   asia-southeast2-b  32    208.00
-n1-highmem-4    asia-southeast2-b  4     26.00
-n1-highmem-64   asia-southeast2-b  64    416.00
-n1-highmem-8    asia-southeast2-b  8     52.00
-n1-highmem-96   asia-southeast2-b  96    624.00
-n1-standard-1   asia-southeast2-b  1     3.75
-n1-standard-16  asia-southeast2-b  16    60.00
-n1-standard-2   asia-southeast2-b  2     7.50
-n1-standard-32  asia-southeast2-b  32    120.00
-n1-standard-4   asia-southeast2-b  4     15.00
-n1-standard-64  asia-southeast2-b  64    240.00
-n1-standard-8   asia-southeast2-b  8     30.00
-n1-standard-96  asia-southeast2-b  96    360.00
-n2-highcpu-16   asia-southeast2-b  16    16.00
-n2-highcpu-2    asia-southeast2-b  2     2.00
-n2-highcpu-32   asia-southeast2-b  32    32.00
-n2-highcpu-4    asia-southeast2-b  4     4.00
-n2-highcpu-48   asia-southeast2-b  48    48.00
-n2-highcpu-64   asia-southeast2-b  64    64.00
-n2-highcpu-8    asia-southeast2-b  8     8.00
-n2-highcpu-80   asia-southeast2-b  80    80.00
-n2-highmem-16   asia-southeast2-b  16    128.00
-n2-highmem-2    asia-southeast2-b  2     16.00
-n2-highmem-32   asia-southeast2-b  32    256.00
-n2-highmem-4    asia-southeast2-b  4     32.00
-n2-highmem-48   asia-southeast2-b  48    384.00
-n2-highmem-64   asia-southeast2-b  64    512.00
-n2-highmem-8    asia-southeast2-b  8     64.00
-n2-highmem-80   asia-southeast2-b  80    640.00
-n2-standard-16  asia-southeast2-b  16    64.00
-n2-standard-2   asia-southeast2-b  2     8.00
-n2-standard-32  asia-southeast2-b  32    128.00
-n2-standard-4   asia-southeast2-b  4     16.00
-n2-standard-48  asia-southeast2-b  48    192.00
-n2-standard-64  asia-southeast2-b  64    256.00
-n2-standard-8   asia-southeast2-b  8     32.00
-n2-standard-80  asia-southeast2-b  80    320.00
+..............
 
 # gcloud compute machine-types list --filter "zone:(asia-southeast2-b asia-southeast2-c)"
 # gcloud compute zones list --filter=region:us-west2
@@ -739,3 +595,62 @@ gcloud compute instance-groups managed delete my-managed-instance-group --region
   * HA
   * AutoScaling
   * Resiliency
+
+
+* [Load Balancing Overview](https://cloud.google.com/load-balancing/docs/load-balancing-overview?hl=es)
+* [Types](https://cloud.google.com/load-balancing/docs/choosing-load-balancer?hl=es_419#lb-summary)
+* [Functions](https://cloud.google.com/load-balancing/docs/features?hl=es_419)
+
+## Terminology
+* Backend - Group of endpoints that receive traffic from a Google Cloud load balancer (AWS Target Group) (example: instnce groups)
+* Frontend - Specify an Ip address, port and protocosl (AWS LB Listener). This IP address is the frontend IP for your clients requets
+  * For SSL a certificate must also be assigned
+* Host and path rules - (For HTTP(S) Load Balancing) - Define rules redirecting the traffic to different backends
+
+
+* Client to load balancer: over internet
+  * https recommended
+* Load Balancer to VM instance: Through Google internal network
+  * HTTP is ok. HTTPS is preferred
+* SSL/TLS Termination/Offloading
+  * Client to loader Balancer: HTTPS/TLS
+  * Load balancer To vm Instance: HTTP/TCP
+
+
+* [Backend](https://cloud.google.com/load-balancing/docs/backend-service?hl=es_419)
+* [Forwarding rules](https://cloud.google.com/load-balancing/docs/forwarding-rule-concepts)
+
+## Features
+
+* External HTTP(S)
+  * Type of traffic: Global, External, HTTP or HTTPS
+  * proxy or pass-through: proxy
+  * Destination ports:
+    * HTTP: 80 oR 8080
+    * HTTPS on 443
+* Internal HTTP(S)
+  * Type of traffic: Global, External, HTTP or HTTPS
+  * proxy or pass-through: proxy
+  * Destination ports:
+    * HTTP: 80 oR 8080
+    * HTTPS on 443
+* SSL Proxy:
+  * Type of traffic: Global, External, TCP with SSL offload
+  * proxy or pass-through: proxy
+  * Destination ports:
+    * a big list
+* TCP Proxy:
+  * Type of traffic: Global, External, TCP without SSL offload
+  * proxy or pass-through: proxy
+  * Destination ports:
+    * a big list
+* External Network TCP/UDP:
+  * Type of traffic: Regional, External, TCP or UDP
+  * proxy or pass-through: pass-through
+  * Destination ports:
+    * any
+* Interla TCP/UDP:
+  * Type of traffic: Regional, External, TCP or UDP
+  * proxy or pass-through: pass-through
+  * Destination ports:
+    * any

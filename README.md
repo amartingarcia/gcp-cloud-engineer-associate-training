@@ -33,6 +33,7 @@
   - [Updating](#updating)
   - [Instance Group Scenarios](#instance-group-scenarios)
   - [Some commands](#some-commands)
+- [6 - Load Balancing](#6---load-balancing)
 
 
 
@@ -724,3 +725,17 @@ gcloud compute instance-groups managed resize my-mig --size=1 --zone=us-central1
 gcloud compute instance-groups managed recreate-instances my-mig --instances=my-mig-85fb --zone us-central1-a
 gcloud compute instance-groups managed delete my-managed-instance-group --region=us-central1
 ```
+
+# 6 - Load Balancing
+* Distributes user traffic across instances of an application in single region or multiple regions
+  * Fully distributed, software defined managed service
+  * Important features:
+    * Health check - Route to healthy instances
+      * Recover from failures
+    * AutoScaling
+    * Global load balancing with single anycast IP
+      * Also supports internal load balancing
+* Enables:
+  * HA
+  * AutoScaling
+  * Resiliency

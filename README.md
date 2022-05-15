@@ -36,6 +36,38 @@
 - [6 - Load Balancing](#6---load-balancing)
   - [Terminology](#terminology)
   - [Features](#features-1)
+- [7 - App Engine](#7---app-engine)
+  - [Compute Engine vs App Engine](#compute-engine-vs-app-engine)
+  - [App Engine Environments](#app-engine-environments)
+  - [Hierarchy](#hierarchy)
+  - [Standard vs flexible](#standard-vs-flexible)
+  - [Scaling instances](#scaling-instances)
+  - [Request routing](#request-routing)
+  - [Deploying new versions without downtime](#deploying-new-versions-without-downtime)
+  - [Split traffic between multiple versoins?](#split-traffic-between-multiple-versoins)
+  - [Commands](#commands)
+    - [Instances](#instances)
+    - [Services and versions](#services-and-versions)
+  - [Cronjobs](#cronjobs)
+  - [Others files](#others-files)
+  - [Remember](#remember)
+- [8 - Cloud Run](#8---cloud-run)
+- [9 - Block and File Storage](#9---block-and-file-storage)
+  - [Block Storage](#block-storage)
+  - [File Storage](#file-storage)
+  - [Types](#types)
+  - [Local SSDs](#local-ssds)
+  - [Persistent Disk](#persistent-disk)
+  - [PD vs SSDs](#pd-vs-ssds)
+  - [PD - Standard vs Balanced vs SSD](#pd---standard-vs-balanced-vs-ssd)
+  - [PD Snaphots](#pd-snaphots)
+    - [Recommendations](#recommendations)
+  - [Compares](#compares)
+  - [Command line](#command-line)
+    - [Disks](#disks)
+    - [Images](#images)
+  - [Filestore](#filestore)
+  - [Review](#review)
 
 
 
@@ -654,3 +686,432 @@ gcloud compute instance-groups managed delete my-managed-instance-group --region
   * proxy or pass-through: pass-through
   * Destination ports:
     * any
+
+
+# 7 - App Engine
+* Simplest way to deploy and scale your applications in GCP
+  * Provides end-to-end application management
+* Support:
+  * Go, Java, .NET, PHP, Python
+  * Use custom run-time and write code in any language
+  * Connect to variety of Google Cloud storage products (Cloud SQL, etc)
+* No usage chartes - Pay for resources provisioned
+* Features:
+  * Automatic load balancing & Auto Scaling
+  * Managed platform updates & Application health monitoring
+  * Application versioning
+  * Traffic splittin
+
+## Compute Engine vs App Engine
+* Compute Engine
+  * IAAS
+  * More Flexibility
+  * MORE Responsability
+    * Choosing image
+    * Installing software
+    * Chosing Hardwareç
+    * Fine grained Access/Permissions (Certificates/Firewall)
+    * Availability etc
+* APP Engine
+  * PaaS
+  * Serverless
+  * LESSER Responsability
+  * LOWER Flexibility
+
+* [App Engine](https://cloud.google.com/appengine/docs?hl=es-419)
+
+## App Engine Environments
+* Standard: Applications run in language specific sandboxes
+  * Complete isolation from OS/Disk/Other App
+  * V1: Java, Python, PHP, Go (Old Versions)
+    * Only For python and PHP runtimes:
+      * Restricted network Access
+      * Only white-listed extensions and libraries are allowed
+    * No Restictions for Java and Go runtimes
+  * V2: Java, Python, PHP, Node.js, Ruby, Go (Newer versions)
+    * Full Network Access and No restrictions on Language Extensions
+* Flexible - Applications instance run within Docker containers
+  * Make use of Compute Enting virtual machines
+  * Support ANY runtime
+  * Provides access to backgroud processes and local disks
+
+* [Standard](https://cloud.google.com/appengine/docs/standard?hl=es_419)
+* [Flexible](https://cloud.google.com/appengine/docs/flexible?hl=es_419)
+
+## Hierarchy
+* Application: One App per project
+* Services: Multiple Microservices or App componentes
+  * You can have multiple services in a single application
+  * Each Service can have different settings
+  * Earlier called Modules
+* Versions: Each version associated with code and configuration
+  * Each Version can run in one or more instances
+  * Multiple versions can co-exist
+  * Options to rollback and split traffic
+
+## Standard vs flexible
+
+* [Comparison](https://cloud.google.com/appengine/docs/the-appengine-environments)
+* [Comparison V2](https://medium.com/10decoders/how-to-choose-app-engine-environment-standard-flexible-9f4c26a723b0)
+
+## Scaling instances
+* Automatic - Automatically scale instances based on the load:
+  * Recommended for Continuously Running Workloads
+    * Auto scale based on:
+      * Target CPU Utilization
+      * Target Throughput Utilization
+      * Max Concurrents Requets
+    * Configure Max Instances and Min instances
+* Basic
+  * Recommended for Adhoc Workloads
+    * Instances ar shutdown if ZERO requets:
+      * Tries to keep costs low
+      * High latency is possible
+    * NOT supported by App Engine Flexible Environment
+    * Configure Max Instances and Idle Timeout
+* Manual Configure specific number of instances to run
+  * Adjust number of instances manually over time
+
+
+* [Scaling](https://cloud.google.com/appengine/docs/flexible/java/how-instances-are-managed?hl=es_419)
+
+```sh
+cd default-service
+gcloud app deploy
+gcloud app services list
+gcloud app versions list
+gcloud app instances list
+gcloud app deploy --version=v2
+gcloud app versions list
+gcloud app browse
+gcloud app browse --version 20210215t072907
+gcloud app deploy --version=v3 --no-promote
+gcloud app browse --version v3
+gcloud app services set-traffic split=v3=.5,v2=.5
+gcloud app services set-traffic splits=v3=.5,v2=.5
+watch curl https://melodic-furnace-304906.uc.r.appspot.com/
+gcloud app services set-traffic --splits=v3=.5,v2=.5 --split-by=random
+ 
+cd ../my-first-service/
+gcloud app deploy
+gcloud app browse --service=my-first-service
+ 
+gcloud app services list
+gcloud app regions list
+ 
+gcloud app browse --service=my-first-service --version=20210215t075851
+gcloud app browse --version=v2
+gcloud app open-console --version=v2
+gcloud app versions list --hide-no-traffic
+```
+
+## Request routing
+* you can use a combination of three approaches:
+  * Routing with URL:
+    * `https://<PROJECT_ID>.<REGION_ID>.r.appspot.com`(Default service called)
+    * `https://<SERVICE>-dot-<PROJECT_ID>.<REGION_ID>.r.appspot.com` (Specific service)
+    * `https://<VERSION>-dot-<PROJECT_ID>.<REGION_ID>.r.appspot.com` (Specific version of service)
+    * Replace -dot- with . if using custom domain
+  * Routing with a dispatch file:
+    * Configure dispatch.yaml with routes
+    * gcloud app deploy dispatch.yaml
+  * Routing with Cloud Load Balancing
+    * Configure routes on Load Balancing instante
+
+## Deploying new versions without downtime
+* How do I go from V1 to V2 without downtime?
+* Option 1: I'm very confident - Deploy & shift all traffic at once:
+  * Deploy and shift all traffic at once from v1 to v2: gcloud app deploy
+* Option 2: I want to manage the migration from v1 to v2:
+  * STEP 1: Deploy v2 without shifting traffic (--no-promote)
+    * gcloud app deploy --no-promote
+  * STEP 2: Shift traffic to V2:
+    * OPTION 1: (all at once Migration); migrate all at once to v2
+      * gcloud app services set-traffic s1 --splits V2=1
+    * OPTION 2: Gradual migration - Gradually shift traffic to v2. Add --migrate option.
+      * Gradual migration is not supported by app engine Flexible environment
+    * OPTION 3: (Splitting): Control the place of migration
+      * gcloud app services set-traffic s1 --splits=v2=.5,v1=.5
+      * Useful to perform A/B testing
+
+## Split traffic between multiple versoins?
+* IP splitting - Based on requets IP address
+  * IP addresses can change causing accuracy issues!
+  * If all requets originate from a corporate vpn with single IP, this can cause all requests to go to the same version
+* Cookie Splitting - Based on a cookie (GOOGAPPUID)
+  * Cookies can be controlled from your application
+  * Cookie splitting accurately assing users to versions
+* Random - Do it randomly
+
+* Include --split-by option in gcloud app services set-traffic command
+  * values: cookie, ip and random
+
+## Commands
+* Syntax: gcloud app brose/create/deploy/describe/open-console
+  * glcoud app create --region=us-central
+  * gcloud app deploy app.yaml
+    * --image-url: Only for flexible environments. Deploy docker image
+      * gcloud app deploy --image-url gcr.io/PROJECT-ID/hellow-world:0.0.1
+      * --promote --no-promte (Should new versions receive traffic?)
+      * --stop-previous-version --no-stop-previous-versoin (Should old verions be stopped after new versions recevies all traffic?)
+      * --version (assing a version. Otherwise, a version number is generated)
+  * gcloud app browse --service="myService" --version="v1"
+  * gcloud app open-console --service="myService" --version="v1"
+  * gcloud app open-console logs
+  * gcloud app logs tail
+  * gcloud app regions list
+
+### Instances
+* glcoud app instances delete/describe/list/scp/ssh
+  * gcloud app instances delete i1 --service=s1 --version=v1
+  * gcloud app instances describe --service=s1 --versions=v1
+  * gcloud app instances list
+  * gcloud app instances scp --service=s1 --verions=v1 --recurse local_dir i1:remote_dir
+  * glcoud app instnaces ssh --service=s1 --version=v1 i1
+
+### Services and versions
+* glcoud app services browse/delete/describe/list/set-traffic
+  * gcloud app services list
+  * gcloud app services browse myservice --version=v1
+  * gcloud app services delete s1 s2
+  * gcloud app services describe s1
+  * glcoud app services set-traffic app1 --splits-v1=0.9,2=0.1
+
+* gcloud app versions browse/delete/describe/list/migrate/start/stop
+  * gcloud app versions list
+    * --hide-no-traffic (Only show versions that are receiving traffic)
+  * gcloud app versions browse/delete/describe v1 --service=s1
+  * gcloud app versions migrate v2 --service=s1
+  * gcloud app verions start/stop v1 
+    * --service=s1 Only start v1 of service s1
+
+## Cronjobs
+```yaml
+cron:
+- description: "daily summary job"
+  url: /task/summary
+  schedule: every 24 hours
+```
+* Allows to run scheduled jobs at pre-defined intervals
+* Use cases:
+  * Send a report by email every day
+  * Refresh cache data every 30 minutes
+* Configured using cron.yaml
+* Run this command - gcloud app deploy cron.yaml
+  * Performs a HTTP GET request to the configured URL on schedule
+
+## Others files
+* dispatch.yaml - override routing rules
+```yaml
+dispatch:
+  - url: "*/mobile/*"
+    service: mobile-frontend
+  - url: "*/work/*"
+    service: static-backend
+```
+
+* queue.yaml - manage task queues
+```yaml
+queue:
+- name: fooqueue
+  rate: 1/s
+  retry_parameters:
+    task_retry_limit: 7
+    task_age_limit: 2d
+```
+
+## Remember
+* AppEngins is REgional
+  * you cannot change an applications region
+* Good option for simple microsercices:
+  * Use standard v2 when uo are using supported languages
+  * Use Flexible if you are building containereized apps
+* Be aware - ATLEAST one container is always running when using Flexible:
+  * Go for Standard if you want to be able to scale down the number of instances to zero when there is NO load
+* Use a combination of resident and dynamic instances
+  * Resident Instances: Run continuously
+  * Dynamic instances: added based on load
+    * Use all dynamic instnaces if you are cost sensitve
+    * If you are not very cost sensitive, keep a set of resident instances running always
+
+# 8 - Cloud Run
+* Cloud Run - Container to Production in Seconds
+  * Built on top of an open standard - Knative
+  * Fully managed serverless platform for containerized applications
+    * Zero infrastructure management
+    * Pay per use (CPU Ram, Requests and Networking)
+* Fully integrated end-to-end developer experience:
+  * No limitations in languages, binaries and dependencies
+  * Cloud Code, Cloud Build, Cloud Monitoring & Cloud Logging Integrations
+* Anthos - Run Kubernetes clusters anywhere
+  * Cloud, multi Cloud and On-Premise
+* Cloud Run for Anthos - Deploy your worklodas to Anthos clusters running on-premises or on Google Cloud
+
+# 9 - Block and File Storage
+## Block Storage
+* Use case: Harddisks attached to your computers
+* Typically, ONE Block Storage device can be connectoed to ONE virtual server
+  * EXCEPTION - You can attach read only bock devices with multiple virtual servers and certain cloud providers are exploring multi-writer disks as well
+* HOWEVER, you can connect multiple different block storage devices to one virtual server
+* Use as:
+  * Direct-attached storage (DAS) - Similiar to a hard disk
+  * Storage Area Network (SAN) - High-speed network connection a pool of storage devices
+    * Used database
+
+## File Storage
+* Media workflows need huge shared storage for supporting processes like video editing
+* Enterprise users need a quick way to share files in a secure and organized way
+* These file shares are shared by serveral virtual servers
+
+## Types
+* Block Storage:
+  * Persistent Disks: Network Block Storage
+    * Zonal: data replicated in a one zone
+    * Regional: Data replicated in multiple zones
+  * Local SSDs: Local Block storage
+* File Storage:
+  * Filestore: High perfomance file storage
+
+
+## Local SSDs
+* Physically attached to the host of VM instance:
+  * Provide very high (IOPS) and very low latency
+  * (BUT) ephemeral storage - Temporary data (Data persists only until instances is running)
+    * Enable live migration for data to survive maintenance events
+  * Data automatically encrypted
+    * HOWEVER, you CANNOT configure encryption keys
+  * Lifecycle tied to VM instance
+  * ONLY some machine types support local SSDs
+  * Supports SCSI and NVMe interfaces
+* Remember:
+  * Choose NVMe-enabled and multi-queue SCSI images for best perfomance
+  * Large Local SSDs (more sotrage), more vCPUs (attached to VM)
+
+* Advantages
+  * Very Fast I/O 
+    * higher throughput and lower latency
+  * Ideal for use cases needing high IOPs while storing temporary information
+    * Examples: Caches, temporary data, scratch files, etc
+* Disadvantages
+  * Ephemeral storage
+    * Lower durability, lower availability, lower flexibility compared to PDs
+  * you cannot detach and attach it to another vm instance
+
+## Persistent Disk
+* Network block storage attached to your VM instance
+* Provisioned capacity
+* Very flexible:
+  * Increase size when you need it - when attached to VM instance
+  * Perfomance scales with size
+    * For higher perfomance, resize or add more PDs
+* Independent lifecycle from VM instance
+  * Attach/Detach from one VM instance to anocher
+* Options: Regional and Zonal
+  * Zonal PDs replicated in single zone. Regional PDs replicated in 2 zones in same Region.
+  * Typically Regional PDs are 2X the cost of Zonal PDs
+* Use case: Run your custom database
+
+## PD vs SSDs
+
+| Feature  | Persistent Disks  | Local SSDs  |
+|---|---|---|
+| Attachment to VM instance  | As a network drive  | Physically attached  |
+| Lifecycle  | Separate from VM instance  | Tied with VM instance  |
+| I/O Speed  | Lower (network latency)  | 10-100X of PDs  |
+| Snapshots  | Supported  | Not supported  |
+| Use case  | Permanent storage  | Ephemeral storage  |
+
+## PD - Standard vs Balanced vs SSD
+| Feature  | Standard  | Balanced  | SSD |
+|---|---|---|---|
+| Underlying Storage  | Hard Disk Drive  | Solid State Drive  | Solid State Drive  |
+| Referred to as  | pd-standard  | pd-balanced  | pd-ssd  |
+| Performance - Sequential IOPS (Big Data/Batch)  | Good  | Good   | Very Good  |
+| Performance - Random IOPS (transactional APPS)  | Bad  | Good   |  Very Good  |
+| Cost  | Cheapest | In Between  | Expensive  |
+| Use case  | Big Data (cost efficient)  | Balance between cost and performance  | High Performance  |
+
+
+## PD Snaphots
+* Take point-in-time snapshots of your Persistent Disks
+* You can also schedule snapshots (configure a schedule):
+  * You can also auto-delete snapshots after X days
+* Snapshots can be Multi-regional and REgional
+* You can share snapshots across projects
+* You can create new disks and instances from snapshots
+* Snapshots are incremental:
+  * Deleting a snapshots only deletes data which is NOT needed by other snapshots
+* Keep similar data together on a Persistent Disk:
+  * Separate your OS, volatile data and permanent data
+  * Attach multiple disks if needed
+  * This helps to better organize your snapshots and images
+
+### Recommendations
+* Avoid taking snapshots more often than once an hour
+* Disk volume is available for use but Snapshots reduce performance
+  * Schedule snapshots during off-peak hours
+* Creaing snapshots from disk is faster than creating from images
+  * But creating disks from image faster than creating from snapshots
+  * if you are repeatedly creating disks from a snapshot
+    * Create and image from snapshot and use the image to create disks
+* Snapshots are incremental:
+  * But you dont lose data vy deleting older snapshots
+  * Deleting a snapshot only deletes data which is NOT needed by other snapshots
+  * Do not hesitate to delete unnecesssary snapshots
+
+## Compares
+| Scenarios  | Machine Image  | PD snapshot  | Custom Image  | Instance template  |
+|---|---|---|---|---|
+| Single disk backup  | yes  | yes  | yes  | no  |
+| Multiple disk backup  | yes  | no  | no  | no  |
+| Differential backup  | yes  | yes  | no  | no  |
+| Instance cloning and replication  | yes  | no  | yes  | yes  |
+| VM instance configuration  | yes  | no  |  no | yes  |
+
+## Command line
+### Disks
+* gcloud compute disks list/create/delete/resize/snapshot
+  * gcloud compute disks create my-disk-1 --zone=us-east1-a
+    * --size= (1GB or 2TB)
+    * --type= (default pd-standard)
+    * --image --image-family --source-disk --source-snapshot
+    * --kms-key --kms-project
+  * gcloud compute disks resize example-disk-1 --size=6TB
+    * Only increasing disk size is supported
+  * gcloud compute disks snapshot test --zone=us-central1-a --snapshot-names=?snapshot-test
+
+### Images
+* gcloud compute images
+* Actions: create/delete/deprecate/describe/export/import/list/update
+  * creating images
+    * gcloud compute images create my-image
+      * --source-disk --source-disk-zone
+      * --source-snapshot
+      * --source-image --source-image-project
+      * --source-image-family --source-image-project
+  * deprecate image
+    * gcloud compute images deprecate IMAGE --state=DEPRECATED
+  * exports virtual disk images
+    * gcloud compute images export --image=my-image --destination-uri=gs://my-bucket/... --export-format=vmdk --project=my-project
+
+## Filestore
+* shared cloud file storage
+  * supports NFSv3 protocol
+  * Provisoned capacity
+* Suitable for high performance workloads
+  * up to 320 TB with throughput of 16 GB/s and 480K IOPS
+* Support HDD (general purpose) and SSD
+* Use cases: file share, media workflows and contenct management
+
+## Review
+* Global
+  * Images
+  * Snapshots
+  * Instances templates
+* Regional
+  * Regional managed IG
+  * REgional PD
+* Zonal
+  * Zonal managed IG
+  * Instances
+  * Persistent Disks

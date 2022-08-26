@@ -33,111 +33,134 @@
     - [Examples:](#examples)
 - [5 - Instance Groups](#5---instance-groups)
   - [Updating](#updating)
-  - [Instance Group Scenarios](#instance-group-scenarios)
+  - [Instance Group - Scenarios](#instance-group---scenarios)
   - [Some commands](#some-commands)
-- [6 - Load Balancing](#6---load-balancing)
-  - [Cloud Load Balancing - Terminology](#cloud-load-balancing---terminology)
-  - [Cloud Load Balancing - Features](#cloud-load-balancing---features)
-  - [Cloud Load Balancing - Scenarios](#cloud-load-balancing---scenarios)
+- [6 - Cloud Load Balancing](#6---cloud-load-balancing)
+  - [Terminology](#terminology)
+  - [Features](#features-1)
+  - [Scenarios](#scenarios-1)
 - [7 - App Engine](#7---app-engine)
   - [Compute Engine vs App Engine](#compute-engine-vs-app-engine)
-  - [App Engine - Environments](#app-engine---environments)
-  - [App Engine - Hierarchy](#app-engine---hierarchy)
-  - [App Engine - Standard vs flexible](#app-engine---standard-vs-flexible)
-  - [App Engine - Scaling instances](#app-engine---scaling-instances)
-  - [App Engine - Some commands](#app-engine---some-commands)
-  - [App Engine - Request routing](#app-engine---request-routing)
-  - [App Engine - Deploying new versions without downtime](#app-engine---deploying-new-versions-without-downtime)
-  - [App Engine - Split traffic between multiple versions?](#app-engine---split-traffic-between-multiple-versions)
-  - [App Engine - Apps](#app-engine---apps)
-    - [App Engine - Instances](#app-engine---instances)
-    - [App Engine - Services and versions](#app-engine---services-and-versions)
-  - [App Engine - Cronjobs](#app-engine---cronjobs)
-  - [App Engine - Others files](#app-engine---others-files)
-  - [App Engine - Remember](#app-engine---remember)
-  - [App Engine - Scenarios](#app-engine---scenarios)
+  - [Environments](#environments)
+  - [Hierarchy](#hierarchy)
+  - [Standard vs flexible](#standard-vs-flexible)
+  - [Scaling instances](#scaling-instances)
+  - [Some commands](#some-commands-1)
+  - [Request routing](#request-routing)
+  - [Deploying new versions without downtime](#deploying-new-versions-without-downtime)
+  - [Split traffic between multiple versions?](#split-traffic-between-multiple-versions)
+  - [Apps](#apps)
+    - [Instances](#instances)
+    - [Services and versions](#services-and-versions)
+  - [Cronjobs](#cronjobs)
+  - [Others files](#others-files)
+  - [Remember](#remember)
+  - [Scenarios](#scenarios-2)
 - [8 - Cloud Functions](#8---cloud-functions)
-  - [Cloud Functions - Concepts](#cloud-functions---concepts)
+  - [Concepts](#concepts)
 - [9 - Cloud Run](#9---cloud-run)
-  - [Cloud Run - Command line](#cloud-run---command-line)
-- [10 - Storage - Block and File Storage](#10---storage---block-and-file-storage)
-  - [Storage - Block Storage](#storage---block-storage)
-  - [Storage - File Storage](#storage---file-storage)
-  - [Storage - Types](#storage---types)
-  - [Storage - Local SSDs](#storage---local-ssds)
-  - [Storage - Persistent Disk](#storage---persistent-disk)
-  - [Storage - PD vs SSDs](#storage---pd-vs-ssds)
-  - [Storage - PD - Standard vs Balanced vs SSD](#storage---pd---standard-vs-balanced-vs-ssd)
-  - [Storage - PD Snaphots](#storage---pd-snaphots)
-    - [Storage - PD Recommendations](#storage---pd-recommendations)
-  - [Storage - Compares](#storage---compares)
   - [Command line](#command-line)
+- [10 - Block and File Storage](#10---block-and-file-storage)
+  - [Block Storage](#block-storage)
+  - [File Storage](#file-storage)
+  - [Types](#types)
+  - [Local SSDs](#local-ssds)
+  - [Persistent Disk](#persistent-disk)
+  - [PD vs SSDs](#pd-vs-ssds)
+  - [PD - Standard vs Balanced vs SSD](#pd---standard-vs-balanced-vs-ssd)
+  - [PD Snaphots](#pd-snaphots)
+    - [PD Recommendations](#pd-recommendations)
+  - [Compares](#compares)
+  - [Command line](#command-line-1)
     - [Disks](#disks)
     - [Images](#images)
-  - [Storage - Scenarios - Persistent Disks](#storage---scenarios---persistent-disks)
+  - [Scenarios - Persistent Disks](#scenarios---persistent-disks)
   - [Filestore](#filestore)
   - [Review](#review)
-  - [Storage - Scenarios - Block and File Storage](#storage---scenarios---block-and-file-storage)
+  - [Scenarios - Block and File Storage](#scenarios---block-and-file-storage)
 - [11 - Object Storage](#11---object-storage)
-  - [Object Storage - Cloud Storage](#object-storage---cloud-storage)
-  - [Object Storage - Cloud Storage - Objects and Buckets](#object-storage---cloud-storage---objects-and-buckets)
-  - [Object Storage - Cloud Storage - Classes](#object-storage---cloud-storage---classes)
-  - [Object Storage - Cloud Storage - Object Versioning](#object-storage---cloud-storage---object-versioning)
-  - [Object Storage - Cloud Storage - Lifecycle Management](#object-storage---cloud-storage---lifecycle-management)
-  - [Object Storage - Cloud Storage - Encryption](#object-storage---cloud-storage---encryption)
-  - [Object Storage - Cloud Storage - Scenarios](#object-storage---cloud-storage---scenarios)
-  - [Object Storage - Cloud Storage - Commands](#object-storage---cloud-storage---commands)
+  - [Object Cloud Storage](#object-cloud-storage)
+  - [Object Cloud Objects and Buckets](#object-cloud-objects-and-buckets)
+  - [Object Cloud Classes](#object-cloud-classes)
+  - [Object Cloud Object Versioning](#object-cloud-object-versioning)
+  - [Object Cloud Lifecycle Management](#object-cloud-lifecycle-management)
+  - [Object Cloud Encryption](#object-cloud-encryption)
+  - [Object Cloud Scenarios](#object-cloud-scenarios)
+  - [Object Cloud Commands](#object-cloud-commands)
 - [12 - IAM](#12---iam)
   - [IAM](#iam)
-  - [IAM - Roles](#iam---roles)
-    - [IAM - Roles - Example permissions](#iam---roles---example-permissions)
-  - [IAM - Members, Role and Policy](#iam---members-role-and-policy)
-    - [IAM - Policy](#iam---policy)
-  - [IAM - Some commands](#iam---some-commands)
-  - [IAM - Service Accounts](#iam---service-accounts)
-    - [IAM - Service Accounts - Scenarios](#iam---service-accounts---scenarios)
-  - [IAM - ACLs](#iam---acls)
+  - [Roles](#roles)
+    - [Roles - Example permissions](#roles---example-permissions)
+  - [Members, Role and Policy](#members-role-and-policy)
+    - [Policy](#policy)
+  - [Some commands](#some-commands-2)
+  - [Service Accounts](#service-accounts)
+    - [Service Accounts - Scenarios](#service-accounts---scenarios)
+  - [ACLs](#acls)
 - [13 - Choosing Database](#13---choosing-database)
-  - [Choosing Database - Database Categories](#choosing-database---database-categories)
-  - [Choosing Database - Relational Database](#choosing-database---relational-database)
-  - [Choosing Database - OLTP Relational Databases](#choosing-database---oltp-relational-databases)
-  - [Choosing Database - OLAP Relational Databases](#choosing-database---olap-relational-databases)
-  - [Choosing Database - OLTP vs OLAP](#choosing-database---oltp-vs-olap)
-  - [Choosing Database - NoSQL](#choosing-database---nosql)
-  - [Choosing Database - In-Memory](#choosing-database---in-memory)
-  - [Choosing Database - Summary](#choosing-database---summary)
-  - [Choosing Database - Scenarios](#choosing-database---scenarios)
+  - [Database Categories](#database-categories)
+  - [Relational Database](#relational-database)
+  - [OLTP Relational Databases](#oltp-relational-databases)
+  - [OLAP Relational Databases](#olap-relational-databases)
+  - [OLTP vs OLAP](#oltp-vs-olap)
+  - [NoSQL](#nosql)
+  - [In-Memory](#in-memory)
+  - [Summary](#summary)
+  - [Scenarios](#scenarios-3)
 - [14 - Exploring Database](#14---exploring-database)
-  - [Exploring Database - CloudSQL](#exploring-database---cloudsql)
-  - [Exploring Database - Commands](#exploring-database---commands)
-  - [Exploring Database - CloudSQL Features](#exploring-database---cloudsql-features)
-  - [Exploring Database - Cloud Spanner](#exploring-database---cloud-spanner)
-  - [Exploring Database - Cloud Datastore and Cloud Firestore](#exploring-database---cloud-datastore-and-cloud-firestore)
-  - [Exploring Database - BigTable](#exploring-database---bigtable)
-  - [Exploring Database - Memorystore](#exploring-database---memorystore)
-  - [Exploring Database - BigQuery](#exploring-database---bigquery)
-  - [Exploring Database - Commands](#exploring-database---commands-1)
-    - [Exploring Database - Commands - gcloud sql](#exploring-database---commands---gcloud-sql)
-    - [Exploring Database - Commands - bq](#exploring-database---commands---bq)
-    - [Exploring Database - Commands - cbt](#exploring-database---commands---cbt)
-  - [Exploring Database - Summary](#exploring-database---summary)
+  - [CloudSQL](#cloudsql)
+  - [Commands](#commands)
+  - [CloudSQL Features](#cloudsql-features)
+  - [Cloud Spanner](#cloud-spanner)
+  - [Cloud Datastore and Cloud Firestore](#cloud-datastore-and-cloud-firestore)
+  - [BigTable](#bigtable)
+  - [Memorystore](#memorystore)
+  - [BigQuery](#bigquery)
+  - [Commands](#commands-1)
+    - [Commands - gcloud sql](#commands---gcloud-sql)
+    - [Commands - bq](#commands---bq)
+    - [Commands - cbt](#commands---cbt)
+  - [Summary](#summary-1)
 - [15 - Pub/Sub](#15---pubsub)
   - [Pub/Sub - Summary](#pubsub---summary)
   - [Pub/Sub - Commands](#pubsub---commands)
 - [16 - Cloud VPC](#16---cloud-vpc)
-  - [Cloud VPC - VPC](#cloud-vpc---vpc)
-  - [Cloud VPC - Firewall Rules](#cloud-vpc---firewall-rules)
-  - [Cloud VPC - Ingress and Egress Rules](#cloud-vpc---ingress-and-egress-rules)
-  - [Cloud VPC - Shared VPC](#cloud-vpc---shared-vpc)
-  - [Cloud VPC - VPC Peering](#cloud-vpc---vpc-peering)
-  - [Cloud VPC - Cloud VPN, Cloud Interconnect and Direct Peering](#cloud-vpc---cloud-vpn-cloud-interconnect-and-direct-peering)
-    - [Cloud VPC - Cloud VPN](#cloud-vpc---cloud-vpn)
-  - [Cloud VPC - Cloud Interconnect](#cloud-vpc---cloud-interconnect)
-  - [Cloud VPC - Direct Peering](#cloud-vpc---direct-peering)
+  - [VPC](#vpc)
+  - [Firewall Rules](#firewall-rules)
+  - [Ingress and Egress Rules](#ingress-and-egress-rules)
+  - [Shared VPC](#shared-vpc)
+  - [VPC Peering](#vpc-peering)
+  - [Cloud VPN, Cloud Interconnect and Direct Peering](#cloud-vpn-cloud-interconnect-and-direct-peering)
+    - [Cloud VPN](#cloud-vpn)
+  - [Cloud Interconnect](#cloud-interconnect)
+  - [Direct Peering](#direct-peering)
 - [17 - Operations](#17---operations)
+  - [Cloud Monitoring](#cloud-monitoring)
+  - [Cloud Logging](#cloud-logging)
+  - [Cloud Audit Logs](#cloud-audit-logs)
+  - [Cloud Routing Logs and Exports](#cloud-routing-logs-and-exports)
+  - [Cloud Trace](#cloud-trace)
+  - [Cloud Debugger](#cloud-debugger)
+  - [Cloud Profiler](#cloud-profiler)
 - [18 - Organizations and IAM](#18---organizations-and-iam)
+  - [Projects, Folders and Organization](#projects-folders-and-organization)
+  - [Billing Accounts](#billing-accounts)
+  - [IAM Best Practices](#iam-best-practices)
+  - [User Identity Management](#user-identity-management)
+  - [Policy Service](#policy-service)
+  - [IAM Policy at multiple levels](#iam-policy-at-multiple-levels)
+  - [IAM Roles](#iam-roles)
+  - [IAM Predefined Roles](#iam-predefined-roles)
+  - [IAM Scenarios](#iam-scenarios)
 - [19 - Pricing Calculator](#19---pricing-calculator)
+  - [Summary](#summary-2)
 - [20 - Other Services](#20---other-services)
+  - [Cloud Deployment Manager](#cloud-deployment-manager)
+  - [Cloud Marketplace](#cloud-marketplace)
+  - [Deployment Manager](#deployment-manager)
+  - [Cloud DNS](#cloud-dns)
+  - [Cloud Dataflow](#cloud-dataflow)
+  - [Cloud Dataproc](#cloud-dataproc)
 
 
 
@@ -375,7 +398,7 @@ Son utilizadas para cargas de trabajo AI/ML.
 
 * Puedes crear/eliminar/actualizar/leer recursos existentes y también realizar implementaciones.
 * Existen otras herramientas CLI, específicas de algunos servicios:
-* Cloud Storage - `gsutil`
+* Cloud `gsutil`
 * Cloud Big Query - `bq`
 * Cloud Bigtable - `cbt`
 * Kubernetes - `kubectl`
@@ -703,7 +726,7 @@ Existen dos tipos de `Instance Groups`:
   * No hay cambios en el `Instance template` pero le gustaría reiniciarlas o reemplazarlas todas.
   * Configure `Maximun surge` o `Max unavailable`.
 
-## Instance Group Scenarios
+## Instance Group - Scenarios
 | Scenario | Solution |
 |---|---|
 | Quires un MIG managed application que sobreviva a Zonal Failures | Crea un MIG multi zona (o regional MIG) |
@@ -729,7 +752,7 @@ gcloud compute instance-groups managed delete my-managed-instance-group --region
 
 
 
-# 6 - Load Balancing
+# 6 - Cloud Load Balancing
 `Cloud Load Balancing` es un servicio que permite distribuir el tráfico entre VMS de una aplicación en una o múltiples regiones.
   * `Managed Service` y `Fully distributed`.
   * Features importantes:
@@ -747,7 +770,7 @@ gcloud compute instance-groups managed delete my-managed-instance-group --region
 * [Types](https://cloud.google.com/load-balancing/docs/choosing-load-balancer?hl=es_419#lb-summary)
 * [Functions](https://cloud.google.com/load-balancing/docs/features?hl=es_419)
 
-## Cloud Load Balancing - Terminology
+## Terminology
 * `Backend` es un grupo de `endpoints` que reciven el tráfico desde __Google Cloud Load Balancer__ por ejemplo, los `IGs`. El recurso de AWS sería `AWS Target Group`. Un mismo `Load Balancer` puede servir múltiples `backends`, por ejemplo `IGs` de microservicios.
 * `Frontend` permite especificar IP address, port and protocols. Estos atributos son facilitados a los clientes para la conexión. El recurso de AWS sería AWS LB Listener.
   * Si usa SSL, un certificado debe ser asignado al `Cloud Load Balancer`.
@@ -766,7 +789,7 @@ gcloud compute instance-groups managed delete my-managed-instance-group --region
 * [Forwarding rules](https://cloud.google.com/load-balancing/docs/forwarding-rule-concepts)
 * [Choose LB](https://cloud.google.com/static/load-balancing/images/choose-lb.svg?hl=es-419)
 
-## Cloud Load Balancing - Features
+## Features
 | Load Balancer | Type of Traffic | Proxy or pass-through | Destination Ports |
 |---|---|---|---|
 | External HTTP(S) | Global, External, HTTP or HTTPS | Proxy | HTTP on 80 or 8080 / HTTPS on 443 |
@@ -776,7 +799,7 @@ gcloud compute instance-groups managed delete my-managed-instance-group --region
 | External Network TCP/UDP | Regional, External, TCP or UDP | Pass-through | any |
 | Internal TCP/UDP | Regional, External, TCP or UDP | Pass-through | any |
 
-## Cloud Load Balancing - Scenarios
+## Scenarios
 | Scenario | Solution | 
 |---|---|
 | Solo las instancias healthy recivan tráfico | Configure health check |
@@ -819,7 +842,7 @@ gcloud compute instance-groups managed delete my-managed-instance-group --region
 
 * [App Engine](https://cloud.google.com/appengine/docs?hl=es-419)
 
-## App Engine - Environments
+## Environments
 * [Standard](https://cloud.google.com/appengine/docs/standard?hl=es_419) - Applications run in language specific sandboxes.
   * Aislamiento completo del OS/Disk/Other Apps.
   * `V1`: Java, Python, PHP, Go (Old Versions).
@@ -834,7 +857,7 @@ gcloud compute instance-groups managed delete my-managed-instance-group --region
   * Soporta cualquier runtime siempre que pueda crear una imagen Docker.
   * Obtiene acceso a procesos en segundo plano que se ejecunta en la VM y puede adjuntar local disks.
 
-## App Engine - Hierarchy
+## Hierarchy
 * `Application`: Solo puede crear una aplicación por proyecto.
 * `Services`: Multiple Microservices or App componentes.
   * You can have multiple services in a single application.
@@ -845,7 +868,7 @@ gcloud compute instance-groups managed delete my-managed-instance-group --region
   * Multiple versions can co-exist.
   * Options to rollback and split traffic.
 
-## App Engine - Standard vs flexible
+## Standard vs flexible
 | Feature  | Standard  | Flexible  |
 |---|---|---|
 | Pricing Factors  | Instance Hours  | vCPU, Memory & Persistent Disks  |
@@ -860,7 +883,7 @@ gcloud compute instance-groups managed delete my-managed-instance-group --region
 * [Comparison](https://cloud.google.com/appengine/docs/the-appengine-environments)
 * [Comparison V2](https://medium.com/10decoders/how-to-choose-app-engine-environment-standard-flexible-9f4c26a723b0)
 
-## App Engine - Scaling instances
+## Scaling instances
 * `Automatic` - Escalado automático en base a carga.
   * Recomendado para cargas de trabajo de ejecución continua.
     * Auto scale based on:
@@ -880,7 +903,7 @@ gcloud compute instance-groups managed delete my-managed-instance-group --region
 
 * [Scaling](https://cloud.google.com/appengine/docs/flexible/java/how-instances-are-managed?hl=es_419)
 
-## App Engine - Some commands
+## Some commands
 
 ```sh
 cd default-service
@@ -912,7 +935,7 @@ gcloud app open-console --version=v2
 gcloud app versions list --hide-no-traffic
 ```
 
-## App Engine - Request routing
+## Request routing
 * Puedes usar la combinación de los siguientes tres enfoques:
   * Enrutamiento por URL:
     * `https://<PROJECT_ID>.<REGION_ID>.r.appspot.com`(Default service called)
@@ -925,7 +948,7 @@ gcloud app versions list --hide-no-traffic
   * Enrutamiento con `Cloud Load Balancing`.
     * Configure routes on Load Balancing instante
 
-## App Engine - Deploying new versions without downtime
+## Deploying new versions without downtime
 * Option 1: I'm very confident - Deploy & shift all traffic at once:
   * Deploy and shift all traffic at once from v1 to v2: `gcloud app deploy`
 * Option 2: I want to manage the migration from v1 to v2:
@@ -940,7 +963,7 @@ gcloud app versions list --hide-no-traffic
       * `gcloud app services set-traffic s1 --splits=v2=.5,v1=.5`
       * Useful to perform A/B testing
 
-## App Engine - Split traffic between multiple versions?
+## Split traffic between multiple versions?
 * `IP splitting` - Based on requets IP address
   * La dirección IP pùede cambiar causando problemas.
   * Si todas las peticiones se envían desde una VPN coorporativa, probablemente salgan con la misma IP y por lo tanto accederá a la misma versión.
@@ -952,7 +975,7 @@ gcloud app versions list --hide-no-traffic
 * Include `--split-by` option in `gcloud app services set-traffic` command
   * values: `cookie`, `ip` and `random`
 
-## App Engine - Apps
+## Apps
 * Syntax: `gcloud app browse/create/deploy/describe/open-console`
   * `gcloud app deploy app.yaml`
     * `--image-url`: Only for App Engine Flexible environments. Deploy docker image.
@@ -966,7 +989,7 @@ gcloud app versions list --hide-no-traffic
   * `gcloud app logs tail`
   * `gcloud app regions list`
 
-### App Engine - Instances
+### Instances
 * `gcloud app instances delete/describe/list/scp/ssh`
 * `gcloud app instances delete i1 --service=s1 --version=v1`
 * `gcloud app instances describe --service=s1 --versions=v1`
@@ -974,7 +997,7 @@ gcloud app versions list --hide-no-traffic
 * `gcloud app instances scp --service=s1 --verions=v1 --recurse local_dir i1:remote_dir`
 * `glcoud app instnaces ssh --service=s1 --version=v1 i1`
 
-### App Engine - Services and versions
+### Services and versions
 * `glcoud app services browse/delete/describe/list/set-traffic`
 * `gcloud app services list`
 * `gcloud app services browse myservice --version=v1`
@@ -990,7 +1013,7 @@ gcloud app versions list --hide-no-traffic
 * `gcloud app verions start/stop v1 `
   * `--service=s1` (Only start v1 of service s1)
 
-## App Engine - Cronjobs
+## Cronjobs
 ```yaml
 cron:
 - description: "daily summary job"
@@ -1004,7 +1027,7 @@ cron:
 * Se configura en el fichero `cron.yaml`.
 * Run this command - `gcloud app deploy cron.yaml`
 
-## App Engine - Others files
+## Others files
 * `dispatch.yaml` - override routing rules
 ```yaml
 dispatch:
@@ -1024,7 +1047,7 @@ queue:
     task_age_limit: 2d
 ```
 
-## App Engine - Remember
+## Remember
 * App Engine es `Regional`.
   * __NO__ puedes cambiar la región de tu applicación.
 * Buena opción para microservicios simples (múltiples microservicios).
@@ -1037,7 +1060,7 @@ queue:
   * `Dynamic instances`: Añadidas bajo demanda de carga de trabajo.
     * Si es muy sensible a los costes utilice siempre `Dynamic instances`.
 
-## App Engine - Scenarios
+## Scenarios
 | Scenario  | Solution  |
 |---|---|
 | Crear dos aplicaciones de Google App Engine en el mismo proyecto  | No es posible, solo puede tener una applicación por proyecto. Sin embargo puede tener múltiples servicios y múltiples versiones para cada servicio.  |
@@ -1055,7 +1078,7 @@ queue:
 * Recomendadas para respuestas a eventos:
   * `Cloud Functions` no es una buena idea para largos procesos.
 
-## Cloud Functions - Concepts
+## Concepts
 * `Event` - Por ejemplo, subió un fichero a `Cloud Storage`.
 * `Trigger` - Respuesta de evento con una llamada a `Cloud Function`.
   * `Trigger` - a que Function debo invocar con este evento?.
@@ -1084,7 +1107,7 @@ queue:
   * Cloud, Multi Cloud and On-Premise.
 * `Cloud Run for Anthos` - Deploy your worklodas to Anthos clusters running on-premises or on Google Cloud.
 
-## Cloud Run - Command line
+## Command line
 | Description  | Command  |
 |---|---|
 | Deploy a new container  | `gcloud run deploy SERVICE_NAME --image IMAGE_URL --revision-suffix v1`  |
@@ -1093,8 +1116,8 @@ queue:
 
 
 
-# 10 - Storage - Block and File Storage
-## Storage - Block Storage
+# 10 - Block and File Storage
+## Block Storage
 * Caso de uso: Disco duro conectado a un ordenador.
 * Generalmente un Block Storage puede ser conectado a una VM.
 * Puedes conectar múltiples Block storages a una misma VM.
@@ -1103,12 +1126,12 @@ queue:
   * Storage Area Network (SAN) - High-speed network connection a pool of storage devices.
     * Used database.
 
-## Storage - File Storage
+## File Storage
 * Media workflows need huge shared storage for supporting processes like video editing
 * Enterprise users need a quick way to share files in a secure and organized way
 * These file shares are shared by serveral virtual servers
 
-## Storage - Types
+## Types
 * `Block Storage`:
   * [Persistent Disks](https://cloud.google.com/compute/docs/disks#pdspecs): Network Block Storage.
     * [Zonal](https://cloud.google.com/compute/docs/disks#zonal-pds): Datos replicados en una zona.
@@ -1117,7 +1140,7 @@ queue:
 * `File Storage`:
   * [Filestore](https://cloud.google.com/architecture/filers-on-compute-engine#filestore): High perfomance file storage.
 
-## Storage - Local SSDs
+## Local SSDs
 * Físicamente conectados al host donde se encuentra la VM.
   * Obtiene un alto [IOPS](https://es.wikipedia.org/wiki/IOPS) y baja latencia.
   * Almacenamiento efímero pensado para datos temporales (Los datos solo persisten mientras la instancia está corriendo).
@@ -1140,7 +1163,7 @@ queue:
     * Baja durabilidad, baja disponibilida, baja flexibilidad comparado con los `PDs`.
   * __NO__ puedes detach y attach a otra VM.
 
-## Storage - Persistent Disk
+## Persistent Disk
 * Network block storage attached a tu VM.
 * Capacidad para provisionar la cantidad que desea.
 * Flexible:
@@ -1154,7 +1177,7 @@ queue:
   * Los regionales son el doble de costosos que lo zonales.
 * Use case: Correr una BBDD.
 
-## Storage - PD vs SSDs
+## PD vs SSDs
 | Feature  | Persistent Disks  | Local SSDs  |
 |---|---|---|
 | Attachment to VM instance  | As a network drive  | Physically attached  |
@@ -1163,7 +1186,7 @@ queue:
 | Snapshots  | Supported  | Not supported  |
 | Use case  | Permanent storage  | Ephemeral storage  |
 
-## Storage - PD - Standard vs Balanced vs SSD
+## PD - Standard vs Balanced vs SSD
 | Feature  | Standard  | Balanced  | SSD |
 |---|---|---|---|
 | Underlying Storage  | Hard Disk Drive  | Solid State Drive  | Solid State Drive  |
@@ -1173,7 +1196,7 @@ queue:
 | Cost  | Cheapest | In Between  | Expensive  |
 | Use case  | Big Data (cost efficient)  | Balance between cost and performance  | High Performance  |
 
-## Storage - PD Snaphots
+## PD Snaphots
 * Snapshots puntuales de sus `Persistent Disks`.
 * Puede programar `Snapshots` (configure a schedule):
   * Puedes configurar que sea eliminados tras X días.
@@ -1187,7 +1210,7 @@ queue:
   * Attach multiple disks if needed.
   * This helps to better organize your snapshots and images.
 
-### Storage - PD Recommendations
+### PD Recommendations
 * Evite realizar snaphost más de una vez por hora.
 * Disk volume is available for use but Snapshots reducen el rendimiento.
   * Programa snapshots en las horas de menor actividad.
@@ -1200,7 +1223,7 @@ queue:
   * Al borrar un snapshot, solo eliminas los datos que no son necesarios para otros snapshots.
   * No dude en eliminar snapshots innecesarios.
 
-## Storage - Compares
+## Compares
 | Scenarios  | Machine Image  | PD snapshot  | Custom Image  | Instance template  |
 |---|---|---|---|---|
 | Single disk backup  | yes  | yes  | yes  | no  |
@@ -1234,7 +1257,7 @@ queue:
   * exports virtual disk images.
     * `gcloud compute images export --image=my-image --destination-uri=gs://my-bucket/... --export-format=vmdk --project=my-project`
 
-## Storage - Scenarios - Persistent Disks
+## Scenarios - Persistent Disks
 | Scenarios  | Solution |
 |---|---|
 | Quiere mejorar el rendimiento de un PD | Aumentar el tamaño del PD o añadir más PDs o incrementerla la vCPU de su VM. |
@@ -1264,7 +1287,7 @@ queue:
   * Instances.
   * Persistent Disks.
 
-## Storage - Scenarios - Block and File Storage
+## Scenarios - Block and File Storage
 | Scenarios  | Solution |
 |---|---|
 | Quiere IOPS muy altas pero su datos se pueden perder sin problema | Local SSDs |
@@ -1275,7 +1298,7 @@ queue:
 
 
 # 11 - Object Storage
-## Object Storage - Cloud Storage
+## Object Cloud Storage
 * Servicio de almacenamiento más popular, flexible y económico.
   * Serverless: Autoscaling
 * Puede almacenar grandes objetos utilizando un enfoque `key-value`.
@@ -1283,7 +1306,7 @@ queue:
   * Los ficheros son llamados `Object Storage`.
 * Es posible almacenar todo tipo de archivos.
 
-## Object Storage - Cloud Storage - Objects and Buckets
+## Object Cloud Objects and Buckets
 * Los `Objects` son almacenados en `Buckets`.
   * El nombre de los buckets debe ser `globally unique`.
   * El nombre de los buckets se utilizará como parte de las URLs de los objetos.
@@ -1294,7 +1317,7 @@ queue:
   * `key is unique` en el bucket.
 * El tamaño máximo de un objeto `5 TB`.
 
-## Object Storage - Cloud Storage - Classes
+## Object Cloud Classes
 * Puede haber diferentes patrones de acceso a objetos.
 * Las `Storage classes` ayudan a optimizar los costes en base al acceso necesario.
   * Diseñado con una durabilidad de __99.99999999999% (11 9's)__.
@@ -1309,7 +1332,7 @@ queue:
 
 > Las Storage Class pueden definirse tanto para buckets como para objetos (nuevos).
 
-## Object Storage - Cloud Storage - Object Versioning
+## Object Cloud Object Versioning
 * Previene el borrado accidental y proporciona histórico.
   * Se habilita a nivel de bucket.
     * Puede ser activado o desactivado en cualquier momento.
@@ -1318,7 +1341,7 @@ queue:
   * Las versiones anteriores son identificadas por `object key + generation number`.
   * Reduce costes eliminado verions anteriores.
 
-## Object Storage - Cloud Storage - Lifecycle Management
+## Object Cloud Lifecycle Management
 * Se accede a los objectos con frecuencia cuando se crean.
   * Generalmente se reduce el tiempo de acceso pasado un tiempo.
 * Utilizando Lifecycle podemos eliminar ficheros o versiones antiguas así como cambiar de clase el objeto.
@@ -1333,14 +1356,14 @@ queue:
   * `Nearline` to `Coldline` or `Archive`.
   * `Coldline` to `Archive`.
 
-## Object Storage - Cloud Storage - Encryption
+## Object Cloud Encryption
 * `Cloud Storage` siempre cifra los datos on the `server side`.
 * Se cifra:
   * `Google-managed encryption key` - Default
   * `Customer-managed encryption keys` - Creadas usando `Cloud KeyManagement Service (KMS)`.
 * Opcionalmente puede cifrarlo on the `client side`, cifrando el objeto previamente y posteriormente en el lado del servidor en el bucket.
 
-## Object Storage - Cloud Storage - Scenarios
+## Object Cloud Scenarios
 | Scenario | Description |
 |---|---|
 | Quiero subir un fichero grande de 100Gb | Utiliza `Parallel composite uploads` (El fichero será partido en trozos y subido) |
@@ -1348,7 +1371,7 @@ queue:
 | Almacenar archivos a los que accederá una vez cada 3 meses | Coldline storage |
 | Necesita cambiar el Storage Class de un bucket | Por un lado debe cambiarlo en el bucket, y por otro en los objetos (no se cambiará en objetos existentes), podrá hacerlo de forma más sencilla con la CLI. |
 
-## Object Storage - Cloud Storage - Commands
+## Object Cloud Commands
 * Cloud Storage (__gsutil__).
   * `gsutil versioning set on/off gs://BUCKET_NAME`.
   * `gsutil uniformbucketlevelaccess set on/off gs://BUCKET_NAME`.
@@ -1378,7 +1401,7 @@ queue:
     * Durante la ventana de mantenimiento
     * ...
 
-## IAM - Roles
+## Roles
 * `Roles` are `Permissions`.
   * Son un conjunto de aciones sobre un conjunto de recursos.
 * 3 tipos de roles
@@ -1392,7 +1415,7 @@ queue:
     * Ejemplos: `Storage Admin`, `Storage Object Admin`, `Storage Object Viewer`, `Storage Object Creator`, ...
   * `Custom Roles` - Utilizados cuando los `Predefined Roles` __NO__ son suficientes, y necesitamos crear nuestros propios roles.
 
-### IAM - Roles - Example permissions
+### Roles - Example permissions
 * Cloud storage Roles.
   * `Storage Admin (roles/storage.admin)`.
     * storage.buckets.*
@@ -1408,7 +1431,7 @@ queue:
   * resourcemanager.projects.get
   * resourcemanager.projects.list
 
-## IAM - Members, Role and Policy
+## Members, Role and Policy
 * `Member/Principal/Identity`: Who?
 * `Roles`: Permission. What Actions?
 * `Policy`: Assign Permissions to Members
@@ -1422,7 +1445,7 @@ queue:
 * Un `Role` puede tener múltiples permisos.
 * Un `Role` puede ser asignado a múltiples `Members`.
 
-### IAM - Policy
+### Policy
 * `Roles` son asignados a los usuario a través de `IAM Policy documents`.
 * Representados por `policy object`.
   * Policy object es una lista de `bindings`.
@@ -1446,7 +1469,7 @@ queue:
 }
 ```
 
-## IAM - Some commands
+## Some commands
 ```sh
 gcloud compute project-info describe
 gcloud auth list
@@ -1457,7 +1480,7 @@ gcloud iam roles describe roles/storage.objectAdmin
 gcloud iam roles copy --source=roles/storage.objectAdmin --destination=my.custom.role --dest-project=glowing-furnace-304608
 ```
 
-## IAM - Service Accounts
+## Service Accounts
 * Utilizadas para acceder a servicios sin necesidad de utilizar credenciales personales.
 * Identificadas por una dirección de email. (Ex: `id-compute@developer.gserviceaccount.com`)
 * No tienen password
@@ -1470,7 +1493,7 @@ gcloud iam roles copy --source=roles/storage.objectAdmin --destination=my.custom
     * Recomendables ya que hacen uso de un control más exaustivo de permisos.
   * `Google-managed service accounts` - Creadas y administrados por Google.
 
-### IAM - Service Accounts - Scenarios
+### Service Accounts - Scenarios
 | Scenario | Description |
 |---|---|
 | Una App en una VM quiere comunicarse con Cloud Storage Bucket | Configure VM para usar una SA con los permisos adecuados. |
@@ -1478,7 +1501,7 @@ gcloud iam roles copy --source=roles/storage.objectAdmin --destination=my.custom
 | Una SA es un recurso o una identity? | Ambos |
 | Una VM con una SA por defecto en el proyecto A necesita acceder a un Cloud Storage Bucket del proyecto B | En el proyecto B, agregar la SA y asignar permisos de Storage Object Viewer al bucket. |
 
-## IAM - ACLs
+## ACLs
 * Las `ACLs` definen quien tiene acceso a sus Buckets y objectos, así como el nivel de acceso que tienen.
 * Que diferencia existe con IAM
   * IAM aplica de manera uniforme a todos los objetos dentro de un Bucket.
@@ -1491,7 +1514,7 @@ gcloud iam roles copy --source=roles/storage.objectAdmin --destination=my.custom
 
 
 # 13 - Choosing Database
-## Choosing Database - Database Categories
+## Database Categories
 * Existe múltiples tipos de BBDD:
   * Relational (OLTP and OLAP), Document, Key value, Graph In memory ...
 * Elegir el tipo de base de datos no es tarea facil:
@@ -1503,7 +1526,7 @@ gcloud iam roles copy --source=roles/storage.objectAdmin --destination=my.custom
   * Cuantos datos se almacenarán? (MBs, GBs, TBs or PBs)
   * ...
 
-## Choosing Database - Relational Database
+## Relational Database
 * Más popular.
 * `Predefined schema` con tablas y relaciones.
 * Capacidades transacionales sólidas.
@@ -1511,7 +1534,7 @@ gcloud iam roles copy --source=roles/storage.objectAdmin --destination=my.custom
   * OLTP (Procesamiento de transacciones en línea) - banca o aplicación de negociación de acciones. Las transacciones y la estructura de los datos son muy importantes.
   * OLAP (Procesamiento de análisis en linea) - muchas consultas estandar en una gran cantidad de datos.
 
-## Choosing Database - OLTP Relational Databases
+## OLTP Relational Databases
 * La gran mayoría de usuario realizan una gran cantidad de pequeñas transaciones.
   * Los datos reads, updates and deletes.
 * Casos de uso:
@@ -1522,7 +1545,7 @@ gcloud iam roles copy --source=roles/storage.objectAdmin --destination=my.custom
   * `Cloud SQL`: Supports PostgreSQL, MySQL and SQL Server para bases de datos relacionales `Regional`.__(algunos TBs de datos)__.
   * `Cloud Spanner`: Escala ilimitada para el almacenamiento de muchos datos ( soporta múltiples PBs) y 99.999% de disponibilidad paraca aplicaciones globales con escalado horizontal.
 
-## Choosing Database - OLAP Relational Databases
+## OLAP Relational Databases
 * Aplicaciones que permiten a los usuarios analizar PBs de datos.
   * Example: Reporting applications, Data ware houses, Business intelligence applications, Analytics systems, ...
   * Ex de app: Desea decidir las primas de seguros analizando los datos de los últimos 100 años.
@@ -1530,7 +1553,7 @@ gcloud iam roles copy --source=roles/storage.objectAdmin --destination=my.custom
 * Google services:
   * `BigQuery`: almacén distribuido a `Petabyte-scale`.
 
-## Choosing Database - OLTP vs OLAP
+## OLTP vs OLAP
 * OLTP vs OLAP estructura de datos similares (tablas y relaciones).
 * Pero muy difernetes en como se almacenan los datos.
 * OLTP almacenamiento en filas.
@@ -1540,7 +1563,7 @@ gcloud iam roles copy --source=roles/storage.objectAdmin --destination=my.custom
   * Datos distribuidos.
   * Ejecuta una sola consulta en varias nodos
 
-## Choosing Database - NoSQL
+## NoSQL
 * `Flexible schema`.
   * Estructura los datos como necesite tu app.
   * El schema evoluciona con el tiempo.
@@ -1560,14 +1583,14 @@ gcloud iam roles copy --source=roles/storage.objectAdmin --destination=my.custom
     * Recomendado para una gran carga de trabjo analítica y operativa.
       * __No__ recomendada para cargas de trabajao transaccionales.
 
-## Choosing Database - In-Memory
+## In-Memory
 * Recuperar datos de memoria es mucho más rapido que recuperarlos de disco. 
 * Las bases de datos como `Redis` brindan una latencia muy baja al almacenar datos persistentes en memoria.
 * Google services:
   * `Memory Store` (Redis or Memcached)
 * Caso de uso: Caching, session management, gaming leader boards, geospatial applications, ...
 
-## Choosing Database - Summary
+## Summary
 | Database Type | GCP Services | Desciption |
 |---|---|---|
 | Relational OLTP databases | `Cloud SQL`, `Cloud Spanner` | Predefined schme and very stron transactional. `Cloud SQL`: MySQL, PostgreSQL, SQL Server. `Cloud Spanner`: Unlimited sacle and 99.999% de disponibilidad aplicaciones globales |
@@ -1575,7 +1598,7 @@ gcloud iam roles copy --source=roles/storage.objectAdmin --destination=my.custom
 | NoSQL Databases | `Cloud firestore (Datastore)`, `Cloud BigTable` | `Cloud Firestore`: serverless transactional document DB, Small to Medium. `Cloud BigTable`: Large databse (10 TB - PBs) Streaming, analytical and operational worklodad. Not Serverless|
 | In Memory databases/caches | `Cloud Memorystore` | Aplicaciones que necesitan respuestas en microsegundos |
 
-## Choosing Database - Scenarios
+## Scenarios
 | Scenario | Solution |
 |---|---|
 | Una startup con un esquema evoluciona (envolving) rápidamente (table structure) | `Cloud Datastore/Firestore`. Si sus datos están pensando en crear muy rápido entonces pondrían pensar en `Cloud Bigtable` |
@@ -1589,7 +1612,7 @@ gcloud iam roles copy --source=roles/storage.objectAdmin --destination=my.custom
 
 
 # 14 - Exploring Database
-## Exploring Database - CloudSQL
+## CloudSQL
 * Servicio relacional administrado.
 * Soporta MySQL, PostgreSQL y SQL Server.
 * `Regional` Service with HA 99.95%
@@ -1604,7 +1627,7 @@ gcloud iam roles copy --source=roles/storage.objectAdmin --destination=my.custom
     * BBDD Global que distribuya entre varias regiones.
     * Necesitas HA 99.999%.
 
-## Exploring Database - Commands
+## Commands
 ```sh
 # Cloud SQL
 gcloud sql connect my-first-cloud-sql-instance --user=root --quiet
@@ -1632,7 +1655,7 @@ cat ~/.cbtrc
 cbt listinstances
 ```
 
-## Exploring Database - CloudSQL Features
+## CloudSQL Features
 * Automatic encryption, mantenimientos y actualizaciones.
 * HA y failover
   * Puede crear un `Standby` con automatic failover.
@@ -1647,7 +1670,7 @@ cbt listinstances
   * Utiliza `Database Migration Service` (DMS).
 * Puedes exportar datos desde UI y gcloud
 
-## Exploring Database - Cloud Spanner
+## Cloud Spanner
 * Base de datos relacional de misión critica, administrada y globalmente distribuida con muy HA (99.999%).
   * Sólida consistencia transaccional a escala global.
   * `Escalado de PBs` con automatic sharding.
@@ -1661,7 +1684,7 @@ cbt listinstances
   * Otra opción es utilizar `Dataflow` para automatizar la exportación.
   * No gcloud export option.
 
-## Exploring Database - Cloud Datastore and Cloud Firestore
+## Cloud Datastore and Cloud Firestore
 * `Datastore` Base de datos NoSQL Document con alta escalabilidad
   * Automáticamente escala y particiona los datos a medida que crece.
   * Recomendado para unos pocos TBs, para volumenes más grandes se recomienda `BigTable`.
@@ -1676,7 +1699,7 @@ cbt listinstances
   * Proporciona liberarías del lado del cliente.
   * Offers Datastore and Native modes.
 
-## Exploring Database - BigTable
+## BigTable
 * Bases de datos `NoSQL wide column y PB scale`, compatible con la API de HBase.
   * Diseñada para grandes volumenes de datos analíticos y operativos (IOT Streams, Analytics, Time Series Data, etc)
   * Puede manejar millones de trasacciones read/write por segundo con una baja latencia.
@@ -1686,7 +1709,7 @@ cbt listinstances
 * __NO__ se puede exportar datos.
 * La CLI de bigTable es `cbt`.
 
-## Exploring Database - Memorystore
+## Memorystore
 * Completamente administrado (provisioning, replication, failover and patching)
   * HA 99.9%
   * Monitorizable con `Cloud Monitoring`.
@@ -1694,7 +1717,7 @@ cbt listinstances
   * Usa Memcached para Reference data, databse query caching, session store
   * Usa redis para baja latencia con persistencia y HA.
 
-## Exploring Database - BigQuery
+## BigQuery
 * Exabyte scale modern `Datawarehousing`
 * BBDD relacional.
 * Ofrece enfoques tradicionales (Storage + Compute) y modernos (Serverlss + Realtime).
@@ -1712,8 +1735,8 @@ cbt listinstances
   * UI or bq (--dry-run)
   * Use Pricing Calculator for 1MB data.
 
-## Exploring Database - Commands
-### Exploring Database - Commands - gcloud sql
+## Commands
+### Commands - gcloud sql
 * `gcloud sql instances create/clone(/delete/describe/patch`
   * `gcloud sql instances create INSTANCE`
   * `gcloud sql isntances patch --backup-start-time`
@@ -1723,14 +1746,14 @@ cbt listinstances
 * `glcoud sql backups create/describe/list`
   * `gcloud sql backups create --async --instance INSTANCE`
 
-### Exploring Database - Commands - bq
+### Commands - bq
 * `bq show bigquery-public-data:samples.shakespeare`
 * `bq query 'QUERY-STRING'`
   * `--dry-run`
 * `bq extract`
 * `bq load`
 
-### Exploring Database - Commands - cbt
+### Commands - cbt
 * Install `gcloud components install cbt`
 * Verify installation - `cbt listinstances`
 * Create __.cbtrc__ file with the configuration
@@ -1742,7 +1765,7 @@ cbt listinstances
 * `cbt listinstances/listclusters`
 * `cbt ls`
 
-## Exploring Database - Summary
+## Summary
 * `BigQuery`, `Datastore`, `Firebase` __NO__ necesitan VM.
   * Pero `Cloud SQL` y `BigTable` __SI__.
 * Bases de datos relacionales
@@ -1786,7 +1809,7 @@ gcloud pubsub topics list-subscriptions my-first-topic
 ```
 
 # 16 - Cloud VPC
-## Cloud VPC - VPC
+## VPC
 * Por defecto cada proyecto tiene a default VPC (Auto mode).
 * Puedes crear tus propias VPCs:
   * 1 - Auto mode VPC Network
@@ -1798,7 +1821,7 @@ gcloud pubsub topics list-subscriptions my-first-topic
   * Enable `Private Google Access` - Permite que las VMs se conecte a Google API usando IPs privadas.
   * Enable `Flowlogs` - Logs sobre la VPC Network.
 
-## Cloud VPC - Firewall Rules
+## Firewall Rules
 * Puede controlar el tráfico de entrada y salida de su Network.
   * Stateful - Quiere decir que si se permite el tráfico entrante el saliente también se permite.
   * Cada Firewall Rule tiene una priorida asignada (0-65535), 0 max priority.
@@ -1813,7 +1836,7 @@ gcloud pubsub topics list-subscriptions my-first-topic
     * Allow incoming TCP traffic on port 3389 (`default allow-rdp`)
     * Allow incoming ICMP from any source on the network (`default-allow-icmp`)
 
-## Cloud VPC - Ingress and Egress Rules
+## Ingress and Egress Rules
 * `Ingress Rule`: Incoming traffic from outside to GCP targets.
   * `Target`: Destination. Ex: all instances with tag X:X
   * `Source`: Ex. CIDR or All instances 
@@ -1827,20 +1850,20 @@ gcloud pubsub topics list-subscriptions my-first-topic
   * `Port` - Number
   * `Enforcement status` - Enable or Disable rule
 
-## Cloud VPC - Shared VPC
+## Shared VPC
 * Permite la comunicación entre recursos que forman parte de proyectos de tu organización.
   * Crea una organización o shared folder level (Access Needed: Shared VPC Admin).
   * Permite que la VPC Network sea compartida entre proyectos de la misma organización
 
-## Cloud VPC - VPC Peering
+## VPC Peering
 * Permite la comunicación entre VPCs en el mismo proyecto, diferentes proyecotos de la misma organización o diferentes proyectos de organizaciones distintas.
 * Para la comunicación se utilizan IPs internas
   * Eficiente porque toda la comunicación ocurre dentro de Google Network.
   * Seguro porque no es accesible desde internet.
   * No hay cargos por transferencia de datos entre servicios.
 
-## Cloud VPC - Cloud VPN, Cloud Interconnect and Direct Peering
-### Cloud VPC - Cloud VPN
+## Cloud VPN, Cloud Interconnect and Direct Peering
+### Cloud VPN
 * Permite conectar tu Network on-premise con la Network de GCP.
 * Se implemente mediante `IPSec VPN Tunnel`.
 * El tráfico pasa por internet, aunque está cifrado.
@@ -1850,7 +1873,7 @@ gcloud pubsub topics list-subscriptions my-first-topic
   * `Classic VPN` 99.9% con 1 dirección IP.
     * Soporta rutas estáticas y dinámicas
 
-## Cloud VPC - Cloud Interconnect
+## Cloud Interconnect
 * Conexión física directa de alta velocidad entre on-premise y VPC Networks on GCP
   * Alta disponiblidad y alto rendimiento
   * Existen dos tipos de conexiones
@@ -1862,7 +1885,7 @@ gcloud pubsub topics list-subscriptions my-first-topic
 * Puede acceder a la API de Google de forma privada desde on-premise.
 * Se recomienda para necesidades de gran ancho de banda, en caso contrario lo recomendable es `Cloud VPN`.
 
-## Cloud VPC - Direct Peering
+## Direct Peering
 * Se utiliza para conectar la red de cliente a la red de Google.
 * __NO__ es un servicio de GCP.
 * Recomendado utlizar `Cloud Interconnect` y `Cloud VPN`.
@@ -1870,9 +1893,38 @@ gcloud pubsub topics list-subscriptions my-first-topic
 
 
 # 17 - Operations
+## Cloud Monitoring
+## Cloud Logging
+## Cloud Audit Logs
+## Cloud Routing Logs and Exports
+## Cloud Trace
+## Cloud Debugger
+## Cloud Profiler
+
+
 
 # 18 - Organizations and IAM
+## Projects, Folders and Organization
+## Billing Accounts
+## IAM Best Practices
+## User Identity Management
+## Policy Service
+## IAM Policy at multiple levels
+## IAM Roles
+## IAM Predefined Roles
+## IAM Scenarios
+
+
 
 # 19 - Pricing Calculator
+## Summary
+
+
 
 # 20 - Other Services
+## Cloud Deployment Manager
+## Cloud Marketplace
+## Deployment Manager
+## Cloud DNS
+## Cloud Dataflow
+## Cloud Dataproc

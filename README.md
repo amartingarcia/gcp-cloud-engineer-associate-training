@@ -136,28 +136,38 @@
   - [Direct Peering](#direct-peering)
 - [17 - Operations](#17---operations)
   - [Cloud Monitoring](#cloud-monitoring)
+    - [Cloud Monitoring - Workspace](#cloud-monitoring---workspace)
+    - [Cloud Monitoring - VM](#cloud-monitoring---vm)
   - [Cloud Logging](#cloud-logging)
   - [Cloud Audit Logs](#cloud-audit-logs)
   - [Cloud Routing Logs and Exports](#cloud-routing-logs-and-exports)
   - [Cloud Trace](#cloud-trace)
   - [Cloud Debugger](#cloud-debugger)
   - [Cloud Profiler](#cloud-profiler)
+  - [Error Reporting](#error-reporting)
+  - [Operations - Scenarios](#operations---scenarios)
 - [18 - Organizations and IAM](#18---organizations-and-iam)
   - [Projects, Folders and Organization](#projects-folders-and-organization)
+    - [Projects, Folders and Organization - Recommendations](#projects-folders-and-organization---recommendations)
   - [Billing Accounts](#billing-accounts)
+    - [Billing Accounts - Budget, Alerts and Exports](#billing-accounts---budget-alerts-and-exports)
   - [IAM Best Practices](#iam-best-practices)
   - [User Identity Management](#user-identity-management)
+  - [IAM members/Identities](#iam-membersidentities)
+    - [IAM members/Identities - use Cases](#iam-membersidentities---use-cases)
   - [Policy Service](#policy-service)
-  - [IAM Policy at multiple levels](#iam-policy-at-multiple-levels)
   - [IAM Roles](#iam-roles)
-  - [IAM Predefined Roles](#iam-predefined-roles)
-  - [IAM Scenarios](#iam-scenarios)
-- [19 - Pricing Calculator](#19---pricing-calculator)
-  - [Summary](#summary-2)
+    - [IAM Roles - Organization, Billing and Project Roles](#iam-roles---organization-billing-and-project-roles)
+    - [IAM Roles - GCE](#iam-roles---gce)
+    - [IAM Roles - Google App Engine](#iam-roles---google-app-engine)
+    - [IAM Roles - GKE](#iam-roles---gke)
+    - [IAM Roles - Google Cloud Storage](#iam-roles---google-cloud-storage)
+    - [IAM Roles - Google Cloud BigQuery](#iam-roles---google-cloud-bigquery)
+    - [IAM Roles - Logging and Service Accounts](#iam-roles---logging-and-service-accounts)
+    - [IAM Roles - Other importante IAM Roles](#iam-roles---other-importante-iam-roles)
 - [20 - Other Services](#20---other-services)
   - [Cloud Deployment Manager](#cloud-deployment-manager)
-  - [Cloud Marketplace](#cloud-marketplace)
-  - [Deployment Manager](#deployment-manager)
+  - [Cloud Marketplace (Cloud Launcher)](#cloud-marketplace-cloud-launcher)
   - [Cloud DNS](#cloud-dns)
   - [Cloud Dataflow](#cloud-dataflow)
   - [Cloud Dataproc](#cloud-dataproc)
@@ -1894,37 +1904,261 @@ gcloud pubsub topics list-subscriptions my-first-topic
 
 # 17 - Operations
 ## Cloud Monitoring
+* Herramienta para monitorizar infraestructura en GCP.
+* Mide aspectos importantes de los servicios (Metrics).
+* Crear visualizaciones (Graphs y Dashboards).
+* Configurar Alerts (when metrics are NOT healthy).
+  * Define Alerting Policies
+    * Condition
+    * Notifications
+    * Documentation
+
+### Cloud Monitoring - Workspace
+* Puede usar `Cloud Monitoring` para monitorizar uno o más proyectos de GCP y una o más cuentas de AWS.
+* Permite visualizar información de múltiples proyectos.
+
+### Cloud Monitoring - VM
+* Default metrics:
+  * CPU utilization
+  * Disk traffic
+  * Network traffic
+  * Uptime information
+* Install Cloud Monitoring agente para obtener más metricas de disk, CPU, network.
+
 ## Cloud Logging
+* Real time log management and analysis tool
+* Permite almancer, buscar, analizar y alertar sobre volúmenes de datos masivos.
+* Administrado y escalable.
+* Ingesta datos desde cualquier fuente.
+* Features:
+  * Logs Explorer.
+  * Logs Dashboard.
+  * Logs Metrics.
+  * Logs Router.
+* La mayoría de servicios de GCP envían logs a Cloud Logging.
+  * GKE.
+  * App Engine.
+  * Cloud Run.
+* La ingesta de logs desde GCE VMs, se hace instalando `Logging Agent`.
+
 ## Cloud Audit Logs
+* `Access Transparency Logs` - captura las acciones realizadas por el equipo de GCP sobre tus recursos (No soportoado por todos los servicios).
+  * Solo para organizaciones que tienen Gold support.
+* `Cloud Audit Logs` - Quien hizo que, donde y cuando
+  * `Admin Activity logs`
+  * `Data Access Logs`
+  * `System Event Audit Logs`
+  * `Policy Denied Audit Logs`
+
 ## Cloud Routing Logs and Exports
+* Puede enrutar logs desde distintas fuentes.
+* Dos tipos de Log buckets
+  * _Required
+  * _Default
+* Idealmente debería almacenar los registros en `Cloud Logging` durante un periodo de tiempo.
+  * Pueden ser exportados a `Cloud Storage Bucket`.
+  * Pueden ser exportados a `BigQuery dataset`.
+  * Pueden ser exportados a `Cloud Pub/Sub`.
+
 ## Cloud Trace
+* Permite recoger trazas de los sistemas de GCP:
+  * Soporta GCP services (GCE, CKE, App Engine)
+
 ## Cloud Debugger
+* Captura el estado de una aplicación
+  * Inespecciona el estado directamente en el entorno de GCP
+  * Puede tomar snapshots de variables y llamadas
+
 ## Cloud Profiler
+* Permite identificar los cuellos de botella en producción
+
+## Error Reporting
+* Monitorización de excepciones en tiempo real
+
+## Operations - Scenarios
+| Scenario | Solution |
+|---|---|
+| Le gustaría almacenar todas las operaciones sobre todos los objetos de un Bucket  | Habilitar el registro de auditorías del bucket |
+| Quiere rastrear una solicitud en varios microservicios | Cloud Trace |
+| Desea identificar excepciones destacadas para un microservicio específico | Error Reporting |
+| Desea depurar un problema en producción ejecutandolo paso a paso | Cloud Debugger |
+| Desea ver los registros para una solicitud específica  | Cloud Logging |
 
 
 
 # 18 - Organizations and IAM
 ## Projects, Folders and Organization
+* Existe una jerarquía bien definida
+  * Organization -> Folder -> Project -> Resources
+* Resources, son creados en un proyecto.
+* Folder, puede contener múltiples proyects.
+* Organization, puede tener múltiples Folers.
+
+### Projects, Folders and Organization - Recommendations
+* Crea proyects separados para cada entorno
+* Crea folders para cada departamento
+* Un proyecto por aplicación
+
 ## Billing Accounts
+* Billing account es obligatoria antes de crear recursos.
+* Una Billing Account puede estar asociada a uno o más proyectos.
+* Puede tener múltiples billing accounts en una Organización
+* Hay dos tipos:
+  * Self Serve
+  * Invoiced
+
+### Billing Accounts - Budget, Alerts and Exports
+* Una de las recomendaciones importantes es configurar `Cloud Billing Bugdet` para evitar sorpresas.
+  * Configure `Alerts`.
+  * Existe alertas por defecto para cuando supere el 50%, 90% y 100% del presupuesto.
+    * Opcionalmente puede enviar alertas a PubSub.
+    * `Billing admins` and `Billing Account user` son alertados por e-mail.
+* Billing data pueden ser exportados:
+  * `BigQuery`
+  * `Cloud Storage`
+
 ## IAM Best Practices
+* `Principle of Least Privilege` - Asigne el mínimo privilegio
+  * Basic Roles (Primitives) __NO__ son recomendados.
+  * Utilice SAs con privilegios mínimos.
+    * Utilice una SA para un único propósito
+* Funciones separadas.
+  * Tener separada el role del que despliega, del que modifica el tráfico.
+* Monitorización constante.
+
 ## User Identity Management
+* Federate Cloud Identity or Google Workspace with yuour IDP.
+* Enable Singles Sign On
+
+## IAM members/Identities
+* Google Account - representa a una persona
+* Service Account - representa una aplicación
+* Google Group - Colección
+  * Email único
+  * Ayuda a aplicar políticas de acceso a un grupo
+* Google Workspace domain - G Suite
+* Cloud Identity domain - 
+
+### IAM members/Identities - use Cases
+| Scenario | Solution |
+|---|---|
+| Todos los miembros de tu equipo tienen cuentas en G Suite. Está creando un proyecto de produción y le gustaría dar acceso a su equipo de operaciones | Crear un grupo con todos los miembros del equipo, crear una política con los permisos necesarios y realizar la asginación al grupo |
+| Todos los miembros de tu equipo tienen cuentas en G Suite. Está configurando un proyecto nuevo. Desea proporcionar un acceso rápido por única vez a un miembro del equipo | Asignar la función directamente a la dirección de correo , dado que va a ser temporal |
+| Dar acceso a un auditor externo para ver los recursos de su proyecto, pero NO debería poder realizar cambios. | Aplicar role de Viewer, que aunque no esté recomendado, será algo temporal y es el único role que tiene permisos de RO sobre todos los recursos. |
+| Tu aplicación se implementa en un proyecto A en una VM y necesita acceder a un Bucket de un proyecto diferente | Asignar en el proyecto B el role a la SA del proyecto A |
+
 ## Policy Service
-## IAM Policy at multiple levels
+* Puede crear políticas a nivel de organización, por ejemplo para evitar que se creen Service Accounts.
+* Para modifiacr una `Organization Policy` necesita el role `Organization Policy Administrator`
+
 ## IAM Roles
-## IAM Predefined Roles
-## IAM Scenarios
+### IAM Roles - Organization, Billing and Project Roles
+* `Organization Administrator`
+  * Puede definir la jerarquía de recursos
+  * Puede definir `Access Management Policies`
+  * Administrar otros `roles` y `users`
+* `Billing Account Creator` - crear Billing Accounts
+* `Billing Account Administrator` - Administra Billings accounts, pero __NO__ puede crear Billing Accounts.
+* `Billing Account User` - Puede asociar `Projects` y `Billing Accounts`.
+  * Generalmente se usa con `Project Creator`.
+* `Billing Account Viewer` - Puede ver los detalles de las Billing Accounts.
 
+### IAM Roles - GCE
+* `Compute Engine Admin` - Control completo sobre compute - Instances, Images, Load Balancers, Network, Firewalls, etc
+* `Compute Instance Admin` - Crear, modificar y eliminar VM y discos
+* `Compute Engine Network Admin` - Acceso completo sobre Network (routes, networks, health checks, VPN, Gateways, etc) and RO to firewall rules and SSL Certificates
+* `Compute Engine Security Admin` - Acceso completo a las firewall rules and SSL Certificates
+* `Compute Storage Admin` - Acceso completo a disks, images y snapshots
+* `Compute Engine Viewer` - RO sobre todos los recursos de compute 
+* `Compute OS Admin Login` - Log in en las VM como admin user
+* `Compute OS Login` - Log in en las VM como usuario standar
 
+### IAM Roles - Google App Engine
+* `App Engine Creator` - Responsable de crear aplicaciones
+* `App Engine Admin` - acceso completo
+* `App Engine Viewer` - acceso como RO
+* `App Engine Code Viewer` - acceso para ver el código
+* `App Engine Deployer` - versiones, aplicaciones
+* `App Engine Service Admin` - split or migrate versions, start and stop a version
 
-# 19 - Pricing Calculator
-## Summary
+### IAM Roles - GKE
+* `Kubernetes Engine Admin` - Acceso completo para administar los clusters y objetos de Kubernetes.
+* `Kubernetes Engine Cluster Admin` - Administrador del cluster (sin permisos en objetos)
+* `Kubernetes Engine Developer` - Puede administra algunos objetos de Kubernetes
+* `Kubernetes Engine Viewer` - get/list cluster and kubernetes api objets
+
+### IAM Roles - Google Cloud Storage
+* `Storage Admin` - Administrador total
+* `Storage Object Admin` - Administrador de objetos
+* `Storage Object Creator` - Puede crear objetoss
+* `Storage Object Viewer` - get/list
+* Container Registry utiliza los mismos permisos que Cloud Storage.
+
+### IAM Roles - Google Cloud BigQuery
+* `BigQuery Admin` - administrador completo de BigQuery
+* `BigQuery Data Owner` - administrador de datos, sin acceso a los Jobs
+* `BigQuery Data Editor` - puede actualizar datos
+* `BigQuery Data Viewer` - puede visualizar datos
+* `BigQuery Job User` - Puede crear Jobs
+* `BigQuery User` - 
+
+### IAM Roles - Logging and Service Accounts
+* `roles/logging.viewer` - 
+* `roles/logging.privateLogViewer` - 
+* `roles/logging.admin` - 
+* `roles/iam.serviceAccountAdmin` - 
+* `roles/iam.serviceAccountUser` - 
+* `roles/iam.serviceAccountTokenCreator` - 
+* `roles/iam.serviceAccountKeyAdmin` - 
+
+### IAM Roles - Other importante IAM Roles
+* `roles/iam.securityAdmin` - Obtener y modificar IAM Policy
+* `roles/iam.securityReviewer` - Listar todos los recursos y IAM policies
+* `roles/iam.organizationRoleAdmin` - Administrator todos los custom roles en una organización y proyectos
+* `roles/iam.organizationRoleViewer` - Leer todos los roles de la organización
+* `roles/iam.roleAdmin` - Acceso a los roles de un proyecto concreto
+* `roles/iam.roleViewer` - Lectura sobre todos los roles de un proyecto concreto
+* `roles/browser` - Acceso de lectura sobre una jerarquia.
 
 
 
 # 20 - Other Services
 ## Cloud Deployment Manager
-## Cloud Marketplace
-## Deployment Manager
+* Automatiza la implementación y modificación de recursos de Google.
+* Configuración definida como YAML
+* Maneja las dependencias
+* Por defecto hace rollback cuando hay un error
+* Su uso es gratuito, solo paga por los recursos que despliega.
+
+```yaml
+resources:
+- name: vm-created-by-deployment-manager
+  type: compute.v1.instance
+  properties:
+    zone: us-central1-a
+    machineType: zones/us-central1-a/machineTypes/n1-standard-1
+    disks:
+    - deviceName: boot
+      type: PERSISTENT
+      boot: true
+      autoDelete: true
+      initializeParams:
+        sourceImage: projects/debian-cloud/global/images/family/debian-11
+    networkInterfaces:
+    - network: global/networks/default
+```
+* Puede utilizar Python o Jinja2 para los `Templates`.
+
+## Cloud Marketplace (Cloud Launcher)
+* Repositorios con imágenes preconfigurados por ejemplo, con wordpress.
+
 ## Cloud DNS
+* Global Domain Name System
+* Puede manejar zonas privadas y públicas.
+
 ## Cloud Dataflow
+* Se puede usar para importar y exportar de múltiples fuentes.
+* Por ejemplo, datos de Pub/Sub a BigQuery.
+
 ## Cloud Dataproc
+* Servicio administrado de Spark y Hadoop.

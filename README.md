@@ -171,6 +171,7 @@
   - [Cloud DNS](#cloud-dns)
   - [Cloud Dataflow](#cloud-dataflow)
   - [Cloud Dataproc](#cloud-dataproc)
+- [21 - Extras](#21---extras)
 
 
 
@@ -2162,3 +2163,9 @@ resources:
 
 ## Cloud Dataproc
 * Servicio administrado de Spark y Hadoop.
+
+
+# 21 - Extras
+* [GCE vs GKE vs Cloud Run vs GAE vs Cloud Functions](https://cloud.google.com/blog/topics/developers-practitioners/where-should-i-run-my-stuff-choosing-google-cloud-compute-option)
+* [Database compare](https://cloud.google.com/products/databases?hl=es)
+* [CheatSheet](https://cloud.google.com/sdk/docs/cheatsheet?hl=es-419)

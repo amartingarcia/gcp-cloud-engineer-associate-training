@@ -228,6 +228,17 @@ Una vez elige la familia, deberá elegir el tipo de instancia, por ejemplo E2:
   * e2 - Machine Type Family
   * standar - Type of workload
   * 2 - Number of CPUs
+  * _En el caso de las standard la RAM=VCPUs*4 = 8Gb de Memoria RAM_
+* e2-highmem-2:
+  * e2 - Machine Type Family
+  * standar - Type of workload
+  * 2 - Number of CPUs
+  * _En el caso de las highmem la RAM=VCPUs*8 = 16Gb de Memoria RAM_
+* e2-highcpu-2:
+  * e2 - Machine Type Family
+  * standar - Type of workload
+  * 2 - Number of CPUs
+  * _En el caso de las highcpu la RAM=VCPUs = 2Gb de Memoria RAM_
 
 A la par que se elige una máquina superior, las capabilities de Memory, Disk y Netwoking van incrementando.
 * [Family](https://cloud.google.com/compute/docs/machine-types)

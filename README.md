@@ -231,12 +231,12 @@ Una vez elige la familia, deberá elegir el tipo de instancia, por ejemplo E2:
   * _En el caso de las standard la RAM=VCPUs*4 = 8Gb de Memoria RAM_
 * e2-highmem-2:
   * e2 - Machine Type Family
-  * standar - Type of workload
+  * highmem - Type of workload
   * 2 - Number of CPUs
   * _En el caso de las highmem la RAM=VCPUs*8 = 16Gb de Memoria RAM_
 * e2-highcpu-2:
   * e2 - Machine Type Family
-  * standar - Type of workload
+  * highcpu - Type of workload
   * 2 - Number of CPUs
   * _En el caso de las highcpu la RAM=VCPUs = 2Gb de Memoria RAM_
 
